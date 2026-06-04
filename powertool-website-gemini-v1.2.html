@@ -91,25 +91,33 @@ nav {
   border-bottom: 1px solid transparent;
 }
 nav.scrolled {
-  background: rgba(1, 12, 21, 0.85);
-  backdrop-filter: blur(20px) saturate(1.8);
-  border-bottom: 1px solid var(--border-dark);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(25px) saturate(1.6);
+  border-bottom: 1px solid var(--border-light);
   padding: 16px 32px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 30px rgba(2, 51, 91, 0.05);
 }
 .brand { display: flex; align-items: center; gap: 12px; }
 .logo-img { height: 30px; width: auto; transition: var(--transition); }
 .wm { display: flex; flex-direction: column; line-height: 1.1; }
 .brand .nm { font-weight: 800; font-size: 20px; letter-spacing: .02em; color: #ffffff; }
 .brand .sb { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: .2em; color: var(--teal-400); font-weight: 600; margin-top: 2px; }
+nav.scrolled .brand .sb { color: #02335b; }
 
 .navlinks { display: flex; gap: 6px; align-items: center; }
 .navlinks a {
   font-size: 13.5px; font-weight: 600; color: rgba(255,255,255,0.75); padding: 8px 16px; border-radius: var(--r-sm); transition: var(--transition);
 }
 .navlinks a:hover { color: #fff; background: rgba(255,255,255,0.06); }
-nav.scrolled .navlinks a { color: var(--text-dim); }
-nav.scrolled .navlinks a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+nav.scrolled .navlinks a { color: var(--text-muted-dark); }
+nav.scrolled .navlinks a:hover { color: #02335b; background: rgba(2, 51, 91, 0.06); }
+nav.scrolled .nav-cta { background: #02335b !important; color: #ffffff !important; box-shadow: none; }
+nav.scrolled .nav-cta:hover { background: var(--teal-500) !important; color: #ffffff !important; }
+nav.scrolled .lang-btn { color: rgba(2, 51, 91, 0.6); }
+nav.scrolled .lang-btn:hover { color: #02335b; }
+nav.scrolled .lang-btn.active { color: #ffffff; background: #02335b; }
+nav.scrolled .lang-switch .divider { color: rgba(2, 51, 91, 0.2); }
+nav.scrolled .burger span { background: #02335b; }
 
 .nav-cta {
   margin-left: 12px;
@@ -1827,11 +1835,13 @@ window.addEventListener('scroll', () => {
   // Progress bar width
   scrollProgress.style.width = `${progress}%`;
   
-  // Navbar scroll class
+  // Navbar scroll class & logo swap
   if (scrollY > 50) {
     nav.classList.add('scrolled');
+    navLogo.src = 'logo/Logo%20new%20powertool%20%231.png';
   } else {
     nav.classList.remove('scrolled');
+    navLogo.src = 'logo/Logo%20new%20powertool%20%233.png';
   }
 });
 
@@ -1966,10 +1976,6 @@ function updateFormPlaceholders(lang) {
     }
   }
 }
-
-// On load check preference
-const savedLang = localStorage.getItem('powertool_lang') || 'mn';
-setLanguage(savedLang);
 
 // Contact form handler
 function handleFormSubmit(event) {
@@ -2247,6 +2253,10 @@ if (canvas) {
     telFreq.innerHTML = `${freq}<span class="unit">Hz</span>`;
   }
 }
+
+// On load check preference
+const savedLang = localStorage.getItem('powertool_lang') || 'mn';
+setLanguage(savedLang);
 </script>
 </body>
 </html>
