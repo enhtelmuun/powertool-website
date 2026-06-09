@@ -1,0 +1,15 @@
+# Office temp lock files
+~$*
+
+# Working scripts & generated previews (not part of the published site)
+_*.py
+_imgs/
+_montage.pdf
+_montage.png
+_s1.png
+_s2.png
+_pdf_sample.png
+
+# Scratch logs
+failed_reps.txt
+untranslated_lines.txt

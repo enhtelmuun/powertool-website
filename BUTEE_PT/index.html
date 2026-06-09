@@ -1,0 +1,2272 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POWERTOOL — Инженерийн дэвшилтэт шийдэл | EPC</title>
+<meta name="description" content="«Повертүүл» ХХК — Монголын эрчим хүч, барилга угсралт, автоматжуулалтын салбарт инженерчлэл, худалдан авалт, барилга угсралтын (EPC) цогц шийдэл хүргэгч үндэсний компани.">
+<link rel="shortcut icon" href="logo/_mark1.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-navy-950: #010c15;
+  --bg-navy-900: #021424;
+  --bg-navy-850: #021c33;
+  --bg-card: #04243d;
+  --bg-card-hover: #062f4f;
+  --bg-light: #f3f7fa;
+  --bg-white: #ffffff;
+  
+  --teal-500: #00b0b0;
+  --teal-400: #00e5e5;
+  --teal-300: #33ebeb;
+  --teal-glow: rgba(0, 229, 229, 0.12);
+  --teal-glow-strong: rgba(0, 229, 229, 0.35);
+  
+  --border-light: rgba(2, 51, 91, 0.1);
+  --border-strong-light: rgba(2, 51, 91, 0.2);
+  --border-dark: rgba(255, 255, 255, 0.08);
+  --border-strong-dark: rgba(255, 255, 255, 0.15);
+  
+  --text-dark: #071927;
+  --text-muted-dark: #526778;
+  --text-light: #f5f5f7;
+  --text-muted-light: #8fa0af;
+  --text-dim: #d1d8df;
+  
+  --r-lg: 20px;
+  --r-md: 14px;
+  --r-sm: 8px;
+  
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.2s ease;
+  --glow-shadow: 0 0 30px rgba(0, 229, 229, 0.15);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg-navy-950);
+  color: var(--text-light);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--teal-500); color: #010c15; }
+
+/* Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal-500), var(--teal-300));
+  width: 0%;
+  z-index: 1000;
+  transition: width 0.1s ease-out;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+}
+a { color: inherit; text-decoration: none; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 32px; position: relative; }
+
+/* Dynamic Class Language switches */
+html[lang="en"] .lang-mn { display: none !important; }
+html[lang="mn"] .lang-en { display: none !important; }
+
+/* ---------- NAV ---------- */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 26px 32px; transition: var(--transition);
+  border-bottom: 1px solid transparent;
+}
+nav.scrolled {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(25px) saturate(1.6);
+  border-bottom: 1px solid var(--border-light);
+  padding: 16px 32px;
+  box-shadow: 0 8px 30px rgba(2, 51, 91, 0.05);
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.logo-img { height: 30px; width: auto; transition: var(--transition); }
+.wm { display: flex; flex-direction: column; line-height: 1.1; }
+.brand .nm { font-weight: 800; font-size: 20px; letter-spacing: .02em; color: #ffffff; }
+.brand .sb { font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: .2em; color: var(--teal-400); font-weight: 600; margin-top: 2px; }
+nav.scrolled .brand .sb { color: #02335b; }
+
+.navlinks { display: flex; gap: 6px; align-items: center; }
+.navlinks a {
+  font-size: 13.5px; font-weight: 600; color: rgba(255,255,255,0.75); padding: 8px 16px; border-radius: var(--r-sm); transition: var(--transition);
+}
+.navlinks a:hover { color: #fff; background: rgba(255,255,255,0.06); }
+nav.scrolled .navlinks a { color: var(--text-muted-dark); }
+nav.scrolled .navlinks a:hover { color: #02335b; background: rgba(2, 51, 91, 0.06); }
+nav.scrolled .nav-cta { background: #02335b !important; color: #ffffff !important; box-shadow: none; }
+nav.scrolled .nav-cta:hover { background: var(--teal-500) !important; color: #ffffff !important; }
+nav.scrolled .lang-btn { color: rgba(2, 51, 91, 0.6); }
+nav.scrolled .lang-btn:hover { color: #02335b; }
+nav.scrolled .lang-btn.active { color: #ffffff; background: #02335b; }
+nav.scrolled .lang-switch .divider { color: rgba(2, 51, 91, 0.2); }
+nav.scrolled .burger span { background: #02335b; }
+
+.nav-cta {
+  margin-left: 12px;
+  background: var(--teal-500) !important;
+  color: #010c15 !important;
+  font-weight: 700;
+  padding: 10px 22px !important;
+  border-radius: var(--r-sm);
+  box-shadow: 0 4px 14px rgba(0, 229, 229, 0.25);
+}
+.nav-cta:hover {
+  background: var(--teal-400) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 229, 229, 0.4);
+}
+
+.lang-switch {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; margin-left: 18px;
+}
+.lang-btn {
+  background: none; border: none; color: rgba(255,255,255,0.5); cursor: pointer;
+  padding: 4px 8px; border-radius: 4px; transition: var(--transition);
+}
+.lang-btn:hover { color: #fff; }
+.lang-btn.active { color: #010c15; background: var(--teal-400); }
+.lang-switch .divider { color: rgba(255,255,255,0.25); }
+
+.burger { display: none; flex-direction: column; gap: 6px; cursor: pointer; padding: 6px; z-index: 101; }
+.burger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: var(--transition); }
+
+/* ---------- HERO ---------- */
+.hero {
+  position: relative; min-height: 100vh; display: flex; align-items: center; overflow: hidden; padding: 150px 0 100px;
+  background: 
+    radial-gradient(1200px 700px at 80% 15%, rgba(0, 229, 229, 0.08), transparent 60%),
+    radial-gradient(1000px 600px at 10% 85%, rgba(2, 51, 91, 0.25), transparent 60%),
+    linear-gradient(160deg, #01080e 0%, #021424 60%, #032540 100%);
+  color: #fff;
+}
+.grid-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(100% 100% at 50% 50%, #000 70%, transparent 100%);
+  -webkit-mask-image: radial-gradient(100% 100% at 50% 50%, #000 70%, transparent 100%);
+}
+
+/* Glowing electric circuit flow */
+.circuit-svg {
+  position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.3;
+}
+.circuit-line {
+  stroke: var(--teal-400); stroke-width: 1.5; fill: none; stroke-linecap: round;
+  stroke-dasharray: 2000; stroke-dashoffset: 2000;
+  animation: drawCircuit 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.circuit-line.alt {
+  stroke: var(--teal-300);
+  animation-delay: 4s;
+}
+.circuit-node {
+  fill: var(--teal-400); filter: drop-shadow(0 0 8px var(--teal-400));
+}
+.circuit-node.alt {
+  fill: var(--teal-300); filter: drop-shadow(0 0 8px var(--teal-300));
+}
+
+@keyframes drawCircuit {
+  0% { stroke-dashoffset: 2000; opacity: 0; }
+  5% { opacity: 0.8; }
+  50% { stroke-dashoffset: 0; opacity: 0.8; }
+  95% { opacity: 0.8; }
+  100% { stroke-dashoffset: -2000; opacity: 0; }
+}
+
+.hero-inner { position: relative; z-index: 5; width: 100%; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+  letter-spacing: .15em; text-transform: uppercase; color: var(--teal-400);
+  border: 1px solid rgba(0, 229, 229, 0.2); border-radius: 30px;
+  padding: 8px 18px; margin-bottom: 30px; background: rgba(0, 229, 229, 0.04);
+  backdrop-filter: blur(5px);
+}
+.hero-tag .pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--teal-400); box-shadow: 0 0 10px var(--teal-400);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .2; transform: scale(0.85); }
+}
+
+.hero h1 {
+  font-size: clamp(44px, 7vw, 92px); font-weight: 800; letter-spacing: -.04em; margin-bottom: 24px; color: #fff; line-height: 1.05;
+}
+.hero h1 .l2 {
+  color: var(--teal-400); display: block;
+  background: linear-gradient(135deg, var(--teal-300), var(--teal-500));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 20px rgba(0, 229, 229, 0.15));
+}
+.hero .coord {
+  font-family: 'JetBrains Mono', monospace; font-weight: 600;
+  font-size: clamp(11px, 1.3vw, 14px); letter-spacing: .35em;
+  color: var(--text-muted-light); margin-bottom: 32px;
+}
+.hero p.lead {
+  font-size: clamp(16px, 1.7vw, 19px); color: var(--text-dim);
+  max-width: 620px; margin-bottom: 48px; line-height: 1.8;
+}
+.hero p.lead b { color: #fff; font-weight: 700; }
+
+.hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 14.5px; font-weight: 700; padding: 14px 30px;
+  border-radius: var(--r-sm); transition: var(--transition);
+  cursor: pointer; position: relative; overflow: hidden;
+}
+.btn-primary {
+  background: var(--teal-500); color: #010c15;
+  box-shadow: 0 4px 20px rgba(0, 229, 229, 0.2);
+}
+.btn-primary:hover {
+  background: var(--teal-400); transform: translateY(-2px);
+  box-shadow: 0 6px 26px rgba(0, 229, 229, 0.35);
+}
+.btn-ghost {
+  border: 1px solid var(--border-strong-dark); color: #fff;
+  background: rgba(255, 255, 255, 0.03);
+}
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+.btn svg { transition: var(--transition); }
+.btn:hover svg { transform: translateX(3px); }
+
+.hero-rail {
+  display: flex; justify-content: space-between; margin-top: 80px;
+  border-top: 1px solid var(--border-dark); padding-top: 40px; gap: 20px;
+  flex-wrap: wrap;
+}
+.hero-rail .m { flex: 1 1 20%; min-width: 140px; }
+.hero-rail .v {
+  font-family: 'Manrope', sans-serif; font-size: 40px; font-weight: 800;
+  color: #fff; line-height: 1; margin-bottom: 8px;
+}
+.hero-rail .v span.u { color: var(--teal-400); }
+.hero-rail .k { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--text-muted-light); letter-spacing: .08em; }
+
+/* ---------- SECTIONS ---------- */
+section { padding: 120px 0; position: relative; }
+section.dark { background: var(--bg-navy-900); }
+section.alt { background: var(--bg-light); color: var(--text-dark); }
+
+/* Blueprint grid overlay for light sections */
+section.alt::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background-image: 
+    radial-gradient(var(--border-light) 1.5px, transparent 1.5px),
+    linear-gradient(var(--border-light) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-light) 1px, transparent 1px);
+  background-size: 40px 40px, 120px 120px, 120px 120px;
+  background-position: center; opacity: 0.65;
+}
+
+.eyebrow-sec {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 700;
+  letter-spacing: .15em; color: var(--teal-500); text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.eyebrow-sec::before {
+  content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--teal-500);
+  box-shadow: 0 0 8px var(--teal-500);
+}
+.sec-title {
+  font-size: clamp(32px, 4vw, 54px); font-weight: 800; line-height: 1.1; margin-bottom: 24px; letter-spacing: -.03em;
+}
+section.alt .sec-title { color: var(--text-dark); }
+.sec-title span.ac {
+  background: linear-gradient(135deg, var(--teal-500), var(--teal-300));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.sec-intro {
+  font-size: clamp(15.5px, 1.5vw, 18px); color: var(--text-dim); max-width: 720px; line-height: 1.75; margin-bottom: 60px;
+}
+section.alt .sec-intro { color: var(--text-muted-dark); }
+
+/* ---------- 01 ABOUT ---------- */
+.about-grid {
+  display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: start;
+}
+.about-grid p { font-size: 16px; margin-bottom: 20px; line-height: 1.8; color: var(--text-muted-dark); }
+.about-grid p b { color: var(--text-dark); font-weight: 700; }
+.about-grid p:last-child { margin-bottom: 0; }
+
+.spec {
+  background: var(--bg-white); border: 1px solid var(--border-light);
+  border-radius: var(--r-lg); padding: 36px; position: relative;
+  box-shadow: 0 10px 40px rgba(2, 51, 91, 0.04);
+}
+/* Blueprint styling details */
+.spec::after {
+  content: '+'; position: absolute; font-family: 'JetBrains Mono', monospace; font-size: 14px;
+  color: var(--teal-500); font-weight: 600; top: 12px; right: 12px; opacity: 0.7;
+}
+.spec .sh { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; color: var(--text-muted-dark); letter-spacing: .15em; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; }
+.spec .row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px dotted var(--border-light); font-size: 13.5px; }
+.spec .row:last-child { border-bottom: none; padding-bottom: 0; }
+.spec .row .k { font-weight: 700; color: var(--text-muted-dark); }
+.spec .row .v { font-weight: 700; color: var(--text-dark); text-align: right; }
+
+/* ---------- 02 VISION ---------- */
+.quote-big { text-align: center; max-width: 960px; padding: 40px 0; }
+.quote-big .mk {
+  font-family: 'Manrope', sans-serif; font-size: 120px; font-weight: 800; line-height: 1;
+  color: rgba(0, 229, 229, 0.12); display: block; margin-bottom: -40px; height: 60px;
+}
+.quote-big h2 { font-size: clamp(22px, 3vw, 36px); font-weight: 700; line-height: 1.5; color: #fff; margin-bottom: 30px; }
+.quote-big h2 span.hl { color: var(--teal-400); font-weight: 800; }
+.quote-big p { font-size: 17px; color: var(--text-dim); line-height: 1.8; max-width: 740px; margin: 0 auto; }
+
+/* ---------- 03 MISSION & VALUES ---------- */
+.mission-banner {
+  font-size: clamp(18px, 2vw, 24px); font-weight: 700; line-height: 1.6; color: var(--text-dark);
+  margin-bottom: 80px; padding-left: 24px; border-left: 4px solid var(--teal-500); max-width: 900px;
+}
+.mission-banner span.ac { color: var(--teal-500); font-weight: 800; }
+
+.val-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; position: relative; z-index: 2;
+}
+/* Grid timeline line running behind icons on desktop */
+.val-grid::before {
+  content: ''; position: absolute; top: 40px; left: 10%; right: 10%; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--border-strong-light) 15%, var(--border-strong-light) 85%, transparent);
+  z-index: -1;
+}
+.val-grid .val {
+  background: var(--bg-white); border: 1px solid var(--border-light);
+  border-radius: var(--r-md); padding: 32px 24px; transition: var(--transition);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  box-shadow: 0 10px 30px rgba(2, 51, 91, 0.02);
+}
+.val-grid .val:hover {
+  transform: translateY(-8px); border-color: var(--teal-500);
+  box-shadow: 0 20px 45px rgba(0, 229, 229, 0.08);
+}
+.val-grid .val .ic {
+  width: 80px; height: 80px; border-radius: 50%; background: var(--bg-light);
+  color: var(--teal-500); display: flex; align-items: center; justify-content: center;
+  margin-bottom: 24px; transition: var(--transition); border: 2px solid var(--bg-white);
+  box-shadow: 0 0 0 1px var(--border-light);
+}
+.val-grid .val:hover .ic {
+  background: var(--teal-500); color: #010c15; transform: scale(1.05);
+  box-shadow: 0 0 0 6px rgba(0, 229, 229, 0.15);
+}
+.val-grid .val .ic svg { width: 34px; height: 34px; stroke-width: 1.5; }
+.val-grid .val h4 { font-size: 15.5px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px; }
+.val-grid .val p { font-size: 13px; color: var(--text-muted-dark); line-height: 1.7; }
+
+/* ---------- 04 OPERATIONS ---------- */
+.op-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+}
+.op {
+  background: var(--bg-card); border: 1px solid var(--border-dark);
+  border-radius: var(--r-lg); padding: 48px 40px; transition: var(--transition);
+  position: relative; overflow: hidden; display: flex; flex-direction: column;
+}
+.op:hover {
+  transform: translateY(-8px); border-color: rgba(0, 229, 229, 0.3);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), var(--glow-shadow);
+}
+/* Cyberpunk glowing card highlight */
+.op::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  border: 2px solid transparent; background: linear-gradient(135deg, var(--teal-500), var(--teal-300)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: var(--transition);
+}
+.op:hover::after { opacity: 0.7; }
+
+.op .epc {
+  position: absolute; right: -20px; top: -30px; font-family: 'Manrope', sans-serif;
+  font-size: 140px; font-weight: 800; color: rgba(255, 255, 255, 0.012);
+  line-height: 1; pointer-events: none; user-select: none; transition: var(--transition);
+}
+.op:hover .epc { color: rgba(0, 229, 229, 0.035); transform: scale(1.05) translate(-10px, 10px); }
+
+.op .num { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 700; color: var(--teal-400); letter-spacing: .08em; margin-bottom: 20px; }
+.op h3 { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 24px; }
+.op ul { list-style: none; margin-top: auto; display: flex; flex-direction: column; gap: 16px; z-index: 2; }
+.op ul li {
+  position: relative;
+  font-size: 13.5px;
+  color: var(--text-dim);
+  padding-left: 18px;
+  line-height: 1.6;
+}
+.op ul li::before {
+  content: ''; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--teal-500);
+  box-shadow: 0 0 6px var(--teal-500);
+}
+.op ul li b { color: #fff; font-weight: 700; }
+
+/* ---------- INTERACTIVE ENGINEERING PANEL (SCADA & TELEMETRY) ---------- */
+.eng-dashboard {
+  display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; margin-top: 60px;
+}
+.eng-panel {
+  background: #021424; border: 1px solid var(--border-dark); border-radius: var(--r-lg);
+  padding: 30px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); position: relative;
+  overflow: hidden;
+}
+.eng-panel::before {
+  content: 'SCADA DIAGRAM / REAL-TIME STATUS'; position: absolute; top: 12px; right: 20px;
+  font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; color: var(--text-muted-light);
+  letter-spacing: .1em; opacity: 0.7;
+}
+.panel-title {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700;
+  color: var(--teal-400); text-transform: uppercase; letter-spacing: .12em;
+  margin-bottom: 24px; display: flex; align-items: center; gap: 8px;
+}
+.panel-title .pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: #4cd964;
+  box-shadow: 0 0 10px #4cd964; animation: pulse 1.5s infinite;
+}
+
+/* SCADA Substation SVG layout */
+.scada-container {
+  width: 100%; height: auto; min-height: 250px; background: rgba(1, 8, 14, 0.6);
+  border: 1px solid rgba(255,255,255,0.05); border-radius: var(--r-sm);
+  padding: 20px; display: flex; align-items: center; justify-content: center;
+}
+.scada-svg { width: 100%; max-width: 480px; height: auto; }
+.scada-line { stroke: #4e5e6e; stroke-width: 2.5; fill: none; transition: stroke 0.3s ease; }
+.scada-line.active { stroke: var(--teal-400); filter: drop-shadow(0 0 4px var(--teal-glow-strong)); }
+.scada-glow-flow {
+  stroke: var(--teal-300); stroke-width: 3.5; fill: none; stroke-linecap: round;
+  stroke-dasharray: 10, 15; stroke-dashoffset: 0;
+  animation: scadaFlow 2s linear infinite; display: none;
+}
+.scada-glow-flow.active { display: block; }
+@keyframes scadaFlow {
+  to { stroke-dashoffset: -50; }
+}
+
+.scada-breaker { cursor: pointer; transition: transform 0.2s ease; }
+.scada-breaker:hover { transform: scale(1.08); }
+.scada-breaker rect { fill: #3a4b5c; stroke: #4e5e6e; stroke-width: 1.5; transition: fill 0.3s, stroke 0.3s; }
+.scada-breaker.on rect { fill: var(--teal-500); stroke: var(--teal-300); }
+.scada-breaker text { font-family: 'JetBrains Mono', monospace; font-size: 8px; fill: #fff; font-weight: 700; text-anchor: middle; pointer-events: none; }
+
+.scada-node { fill: #3a4b5c; transition: fill 0.3s; }
+.scada-node.active { fill: var(--teal-400); filter: drop-shadow(0 0 6px var(--teal-400)); }
+
+.scada-label { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; fill: var(--text-muted-light); font-weight: 600; }
+.scada-label.active { fill: #fff; }
+
+/* Oscilloscope panel */
+.telemetry-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 20px;
+}
+.tel-card {
+  background: rgba(1, 8, 14, 0.4); border: 1px solid rgba(255,255,255,0.04);
+  border-radius: var(--r-sm); padding: 14px 18px; display: flex; flex-direction: column;
+}
+.tel-card .lbl { font-family: 'JetBrains Mono', monospace; font-size: 9px; font-weight: 600; color: var(--text-muted-light); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 6px; }
+.tel-card .val { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; color: #fff; line-height: 1.2; }
+.tel-card .val span.unit { font-size: 11px; font-weight: 500; color: var(--teal-400); margin-left: 2px; }
+
+/* Canvas Oscilloscope Styling */
+.osc-container {
+  width: 100%; background: #01080e; border: 1px solid rgba(255,255,255,0.05);
+  border-radius: var(--r-sm); overflow: hidden; position: relative; margin-top: 14px;
+}
+.osc-canvas { display: block; width: 100%; height: 120px; }
+
+/* ---------- 05 LICENSES ---------- */
+.lic-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; gap: 40px; }
+.lic-head .sec-intro { margin-bottom: 0; }
+.lic-count {
+  display: flex; align-items: center; gap: 18px; background: var(--bg-white); border: 1px solid var(--border-light);
+  border-radius: var(--r-md); padding: 20px 28px; box-shadow: 0 8px 30px rgba(2, 51, 91, 0.015); flex-shrink: 0;
+}
+.lic-count .big { font-family: 'Manrope', sans-serif; font-size: 46px; font-weight: 800; color: var(--text-dark); line-height: 1; }
+.lic-count .lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted-dark); letter-spacing: .08em; line-height: 1.3; }
+
+.lic-tabs-wrapper {
+  background: var(--bg-white); border: 1px solid var(--border-light);
+  border-radius: var(--r-lg); padding: 12px; box-shadow: 0 15px 40px rgba(2, 51, 91, 0.02);
+}
+.lic-tabs {
+  display: flex; gap: 4px; border-bottom: 1px solid var(--border-light); padding-bottom: 12px; margin-bottom: 24px;
+}
+.tab-btn {
+  background: none; border: none; padding: 14px 24px; font-size: 13.5px; font-weight: 700;
+  color: var(--text-muted-dark); cursor: pointer; border-radius: var(--r-sm); transition: var(--transition-fast);
+}
+.tab-btn:hover { color: var(--text-dark); background: var(--bg-light); }
+.tab-btn.active { color: #fff; background: var(--text-dark); }
+
+.lic-pane { display: none; grid-template-columns: 1fr; gap: 12px; opacity: 0; transform: translateY(10px); transition: var(--transition); }
+.lic-pane.active { display: grid; opacity: 1; transform: none; }
+
+.lic {
+  background: var(--bg-light); border: 1px solid transparent; border-radius: var(--r-sm);
+  padding: 18px 24px; display: flex; align-items: center; gap: 24px; transition: var(--transition);
+}
+.lic:hover { background: var(--bg-white); border-color: var(--border-strong-light); transform: translateX(4px); }
+.lic .code {
+  font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700;
+  background: var(--text-dark); color: var(--teal-400); padding: 6px 14px; border-radius: 4px;
+  min-width: 82px; text-align: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.lic.bld .code { background: var(--teal-500); color: #010c15; font-weight: 800; box-shadow: 0 2px 8px rgba(0, 229, 229, 0.2); }
+.lic p { font-size: 13.5px; color: var(--text-dark); font-weight: 600; line-height: 1.5; }
+
+/* ---------- 06 ADVANTAGES ---------- */
+.adv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.adv {
+  background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--r-lg);
+  padding: 44px 36px; transition: var(--transition); box-shadow: 0 10px 30px rgba(2, 51, 91, 0.015);
+}
+.adv:hover { transform: translateY(-6px); border-color: var(--border-strong-light); box-shadow: 0 20px 40px rgba(2, 51, 91, 0.04); }
+.adv .n { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700; color: var(--teal-500); margin-bottom: 20px; display: inline-block; }
+.adv h4 { font-size: 19px; font-weight: 800; color: var(--text-dark); margin-bottom: 16px; }
+.adv p { font-size: 13.5px; color: var(--text-muted-dark); line-height: 1.7; }
+
+/* ---------- 07 PROJECTS ---------- */
+.proj-filter { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 44px; }
+.proj-filter button {
+  background: rgba(255,255,255,0.02); border: 1px solid var(--border-dark);
+  padding: 10px 20px; font-size: 13px; font-weight: 700; color: var(--text-dim);
+  cursor: pointer; border-radius: 30px; transition: var(--transition);
+}
+.proj-filter button:hover { color: #fff; background: rgba(255,255,255,0.06); border-color: var(--border-strong-dark); }
+.proj-filter button.active { background: var(--teal-500); border-color: var(--teal-500); color: #010c15; box-shadow: 0 4px 14px rgba(0, 229, 229, 0.2); }
+
+.proj-list { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.proj {
+  background: var(--bg-navy-900); border: 1px solid var(--border-dark); border-radius: var(--r-md);
+  padding: 24px 32px; display: grid; grid-template-columns: 80px 1fr 180px; align-items: center; gap: 40px;
+  transition: var(--transition); opacity: 1; transform: scale(1);
+}
+.proj.hide { display: none; opacity: 0; transform: scale(0.95); }
+.proj:hover {
+  background: var(--bg-card-hover); border-color: var(--border-strong-dark); transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+.proj .yr { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 800; color: var(--teal-400); }
+.proj .ttl { font-size: 15.5px; font-weight: 700; color: #fff; margin-bottom: 6px; line-height: 1.4; }
+.proj .cli { font-size: 12px; font-weight: 600; color: var(--text-muted-light); }
+.proj .badge { justify-self: end; }
+.proj .badge span {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; text-transform: uppercase;
+  color: var(--teal-400); border: 1px solid rgba(0, 229, 229, 0.25); border-radius: 4px; padding: 6px 12px;
+  letter-spacing: .05em; background: rgba(0, 229, 229, 0.03);
+}
+
+/* ---------- 07 MARKET / STATS ---------- */
+#market { background: var(--bg-navy-950); }
+.mkt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 60px; }
+.mkt-grid p { font-size: 16px; line-height: 1.8; color: var(--text-dim); }
+.mkt-grid p b { color: #fff; font-weight: 700; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; border-top: 1px solid var(--border-dark); padding-top: 60px; }
+.stat { background: var(--bg-navy-900); border: 1px solid var(--border-dark); border-radius: var(--r-md); padding: 32px; text-align: center; transition: var(--transition); }
+.stat:hover { border-color: rgba(0, 229, 229, 0.2); transform: translateY(-4px); box-shadow: var(--glow-shadow); }
+.stat.t { border-color: rgba(0, 229, 229, 0.15); }
+.stat .num { font-family: 'Manrope', sans-serif; font-size: 44px; font-weight: 800; color: #fff; margin-bottom: 10px; line-height: 1; }
+.stat .num::after { content: '+'; color: var(--teal-500); font-weight: 600; margin-left: 2px; }
+.stat .lbl { font-size: 12.5px; font-weight: 700; color: var(--text-muted-light); line-height: 1.4; text-transform: uppercase; letter-spacing: .05em; }
+
+/* ---------- 08 PARTNERS ---------- */
+.part-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 60px; }
+.part {
+  background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--r-lg);
+  padding: 44px 36px; transition: var(--transition); box-shadow: 0 10px 30px rgba(2, 51, 91, 0.015);
+}
+.part:hover { transform: translateY(-6px); border-color: var(--border-strong-light); box-shadow: 0 20px 45px rgba(2, 51, 91, 0.04); }
+.part .logo { font-family: 'Manrope', sans-serif; font-size: 22px; font-weight: 800; color: var(--text-dark); margin-bottom: 8px; letter-spacing: -.02em; }
+.part .role { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--teal-500); letter-spacing: .08em; margin-bottom: 24px; }
+.part p { font-size: 13.5px; color: var(--text-muted-dark); line-height: 1.7; }
+
+/* Customer Values Grid in Partners Section */
+.val-grid.cust { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.val-grid.cust::before { display: none; }
+.val-grid.cust .val { padding: 36px 28px; text-align: left; align-items: flex-start; }
+.val-grid.cust .val .ic { background: var(--bg-light); color: var(--teal-500); margin-bottom: 24px; box-shadow: none; border: none; }
+.val-grid.cust .val:hover .ic { background: var(--teal-500); color: #010c15; box-shadow: 0 0 0 5px rgba(0, 229, 229, 0.12); }
+
+/* ---------- 09 QUALITY ---------- */
+.q-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.q {
+  background: var(--bg-white); border: 1px solid var(--border-light); border-radius: var(--r-md);
+  padding: 36px 28px; transition: var(--transition); box-shadow: 0 8px 30px rgba(2, 51, 91, 0.01);
+}
+.q:hover { transform: translateY(-4px); border-color: var(--border-strong-light); box-shadow: 0 15px 35px rgba(2, 51, 91, 0.03); }
+.q .ic { width: 56px; height: 56px; border-radius: 12px; background: var(--bg-light); color: var(--teal-500); display: flex; align-items: center; justify-content: center; margin-bottom: 24px; transition: var(--transition); }
+.q:hover .ic { background: var(--teal-500); color: #010c15; transform: scale(1.05); }
+.q .ic svg { width: 24px; height: 24px; stroke-width: 2; }
+.q h4 { font-size: 16.5px; font-weight: 800; color: var(--text-dark); margin-bottom: 12px; line-height: 1.3; }
+.q p { font-size: 13px; color: var(--text-muted-dark); line-height: 1.6; }
+
+/* ---------- 10 FUTURE ---------- */
+.fut-list { display: flex; flex-direction: column; gap: 16px; }
+.fut {
+  background: var(--bg-navy-900); border: 1px solid var(--border-dark); border-radius: var(--r-md);
+  padding: 32px 40px; display: flex; gap: 32px; align-items: flex-start; transition: var(--transition);
+}
+.fut:hover { border-color: rgba(0, 229, 229, 0.2); transform: translateX(8px); box-shadow: var(--glow-shadow); }
+.fut .n { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 800; color: var(--teal-500); line-height: 1.2; }
+.fut .c h4 { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+.fut .c p { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+
+/* ---------- 11 CONCLUSION ---------- */
+.concl {
+  text-align: center; position: relative; overflow: hidden;
+  background: 
+    radial-gradient(900px 500px at 50% 50%, rgba(0, 229, 229, 0.05), transparent 70%),
+    var(--bg-navy-950);
+}
+.concl-inner { max-width: 800px; padding: 60px 0; }
+.concl h2 { font-size: clamp(32px, 5vw, 62px); font-weight: 800; color: #fff; margin-bottom: 30px; letter-spacing: -.03em; }
+.concl h2 span {
+  background: linear-gradient(135deg, var(--teal-500), var(--teal-300));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.concl p { font-size: 17px; color: var(--text-dim); line-height: 1.8; margin-bottom: 44px; }
+.concl .btn { padding: 16px 36px; margin-bottom: 32px; }
+.tagline-final { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; font-weight: 600; color: var(--text-muted-light); letter-spacing: .05em; }
+
+/* ---------- CONTACT FORM ---------- */
+.contact-section { background: var(--bg-navy-950); border-top: 1px solid var(--border-dark); }
+.contact-grid { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 80px; align-items: start; }
+.contact-info h3 { font-size: clamp(22px, 3vw, 32px); font-weight: 800; color: #fff; margin-bottom: 24px; }
+.contact-info p { font-size: 15px; color: var(--text-dim); line-height: 1.8; margin-bottom: 40px; }
+
+.contact-methods { display: flex; flex-direction: column; gap: 24px; }
+.contact-item { display: flex; gap: 20px; align-items: flex-start; }
+.contact-item .icon-box {
+  width: 48px; height: 48px; border-radius: var(--r-sm); background: var(--bg-navy-900); color: var(--teal-500);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid var(--border-dark);
+}
+.contact-item:hover .icon-box { border-color: rgba(0, 229, 229, 0.3); box-shadow: 0 0 15px rgba(0, 229, 229, 0.15); }
+.contact-item .icon-box svg { width: 20px; height: 20px; stroke-width: 2; }
+.contact-item .details h5 { font-size: 11px; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; color: var(--text-muted-light); letter-spacing: .15em; margin-bottom: 6px; }
+.contact-item .details p { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 0; }
+.contact-item .details p a:hover { color: var(--teal-500); }
+
+.contact-form-box {
+  background: var(--bg-navy-900); border: 1px solid var(--border-dark); border-radius: var(--r-lg); padding: 48px;
+}
+.form-group { margin-bottom: 24px; position: relative; }
+.form-group label {
+  display: block; font-size: 11.5px; font-weight: 700; color: var(--text-muted-light);
+  text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; transition: var(--transition-fast);
+}
+.form-group input, .form-group textarea {
+  width: 100%; padding: 14px 18px; border-radius: var(--r-sm); background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-dark); color: #fff; font-family: inherit; font-size: 14px;
+  transition: var(--transition-fast);
+}
+.form-group input:focus, .form-group textarea:focus {
+  outline: none; border-color: var(--teal-500); background: rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 15px rgba(0, 229, 229, 0.08);
+}
+.form-group input:focus + label, .form-group textarea:focus + label { color: var(--teal-500); }
+
+.form-submit-btn {
+  width: 100%; border: none; background: var(--teal-500); color: #010c15;
+  padding: 16px; font-size: 14.5px; font-weight: 700; cursor: pointer;
+  border-radius: var(--r-sm); transition: var(--transition);
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  box-shadow: 0 4px 14px rgba(0, 229, 229, 0.15);
+}
+.form-submit-btn:hover { background: var(--teal-400); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 229, 229, 0.3); }
+.form-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
+.form-submit-btn svg { transition: var(--transition); }
+.form-submit-btn:hover svg { transform: translate(2px, -2px); }
+
+.form-status {
+  margin-top: 20px; font-size: 13.5px; font-weight: 700; text-align: center; display: none; padding: 12px; border-radius: var(--r-sm);
+}
+.form-status.success { background: rgba(0, 229, 229, 0.1); border: 1px solid rgba(0, 229, 229, 0.2); color: var(--teal-400); }
+
+/* ---------- FOOTER ---------- */
+footer { background: #01080e; border-top: 1px solid var(--border-dark); padding: 80px 0 40px; }
+.foot-grid { display: grid; grid-template-columns: 1.2fr 0.8fr 1fr; gap: 80px; margin-bottom: 60px; }
+.foot-brand .row { display: flex; align-items: center; margin-bottom: 24px; }
+.foot-brand p { color: var(--text-muted-light); max-width: 360px; font-size: 13.5px; line-height: 1.7; }
+.foot-col h5 {
+  font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 11px;
+  letter-spacing: .15em; text-transform: uppercase; color: var(--teal-500); margin-bottom: 24px;
+}
+.foot-col .item { display: flex; gap: 14px; margin-bottom: 18px; color: var(--text-dim); font-size: 13.5px; align-items: flex-start; }
+.foot-col .item svg { width: 16px; height: 16px; color: var(--teal-500); flex-shrink: 0; margin-top: 3px; }
+.foot-col a:hover { color: var(--teal-500); }
+
+.foot-bottom {
+  border-top: 1px solid var(--border-dark); padding-top: 30px;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px;
+  color: var(--text-muted-light); font-size: 12px; font-family: 'JetBrains Mono', monospace;
+}
+
+/* ---------- RESPONSIVE DESIGN ---------- */
+@media(max-width: 980px) {
+  .about-grid, .op-grid, .adv-grid, .part-grid, .mkt-grid, .foot-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+  .stats, .q-grid, .lic-pane { grid-template-columns: 1fr 1fr; }
+  .val-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .val-grid::before { display: none; }
+  .val-grid.cust { grid-template-columns: repeat(2, 1fr); }
+  .eng-dashboard { grid-template-columns: 1fr; }
+  .navlinks {
+    position: fixed; top: 0; right: 0; height: 100vh; width: 80%; max-width: 320px;
+    flex-direction: column; background: var(--bg-navy-850); padding: 100px 30px;
+    gap: 10px; transform: translateX(100%); transition: var(--transition);
+    align-items: stretch; border-left: 1px solid var(--border-dark);
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
+  }
+  .navlinks.open { transform: none; }
+  .navlinks a { padding: 14px 18px; font-size: 16px; color: rgba(255,255,255,0.85); }
+  .nav-cta { margin-left: 0; text-align: center; margin-top: 10px; }
+  .lang-switch { margin-left: 18px; margin-top: 14px; align-self: flex-start; }
+  .lang-btn { color: rgba(255, 255, 255, 0.8); }
+  .lang-btn.active { color: #010c15; background: var(--teal-400); }
+  .burger { display: flex; }
+  .burger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .burger.open span:nth-child(2) { opacity: 0; }
+  .burger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+}
+@media(max-width: 620px) {
+  .wrap { padding: 0 24px; }
+  nav { padding: 16px 24px; }
+  .hero-rail .m { flex: 1 1 45%; border-right: none !important; padding-right: 0; }
+  .proj { grid-template-columns: 60px 1fr; gap: 16px; padding: 20px 24px; }
+  .proj .badge { display: none; }
+  .val-grid, .val-grid.cust, .lic-pane, .stats, .q-grid { grid-template-columns: 1fr; }
+  .lic-tabs { flex-direction: column; gap: 4px; border-bottom: none; }
+  .tab-btn { text-align: left; padding: 10px 16px; width: 100%; }
+  .lic { padding: 16px; gap: 16px; }
+  .lic .code { min-width: 72px; padding: 6px 8px; }
+  .spec { padding: 24px; }
+  .foot-bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#top" class="brand">
+    <img src="logo/Logo%20new%20powertool%20%233.png" alt="POWERTOOL Logo" id="navLogo" class="logo-img">
+    <span class="wm">
+      <span class="nm" style="display:none">POWERTOOL</span>
+      <span class="sb lang-mn">ПОВЕРТҮҮЛ ХХК</span>
+      <span class="sb lang-en">POWERTOOL LLC</span>
+    </span>
+  </a>
+  <div class="navlinks" id="navlinks">
+    <a href="#about">
+      <span class="lang-mn">Танилцуулга</span>
+      <span class="lang-en">About</span>
+    </a>
+    <a href="#vision">
+      <span class="lang-mn">Алсын хараа</span>
+      <span class="lang-en">Vision</span>
+    </a>
+    <a href="#operations">
+      <span class="lang-mn">Үйл ажиллагаа</span>
+      <span class="lang-en">Services</span>
+    </a>
+    <a href="products.html">
+      <span class="lang-mn">Бүтээгдэхүүн</span>
+      <span class="lang-en">Products</span>
+    </a>
+    <a href="#licenses">
+      <span class="lang-mn">Чадавх</span>
+      <span class="lang-en">Capabilities</span>
+    </a>
+    <a href="#projects">
+      <span class="lang-mn">Төслүүд</span>
+      <span class="lang-en">Projects</span>
+    </a>
+    <a href="#partners">
+      <span class="lang-mn">Түншлэл</span>
+      <span class="lang-en">Partners</span>
+    </a>
+    <a href="#contact" class="nav-cta">
+      <span class="lang-mn">Холбоо барих</span>
+      <span class="lang-en">Contact Us</span>
+    </a>
+    <div class="lang-switch">
+      <button id="btn-mn" class="lang-btn" onclick="setLanguage('mn')">MN</button>
+      <span class="divider">|</span>
+      <button id="btn-en" class="lang-btn" onclick="setLanguage('en')">EN</button>
+    </div>
+  </div>
+  <div class="burger" id="burger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="grid-bg"></div>
+  
+  <!-- Circuit grid background animation -->
+  <svg class="circuit-svg" viewBox="0 0 1440 900" preserveAspectRatio="none">
+    <path class="circuit-line" d="M 0 150 L 300 150 L 400 250 L 800 250 L 900 150 L 1440 150"/>
+    <path class="circuit-line alt" d="M 100 800 L 400 800 L 500 700 L 1000 700 L 1100 800 L 1440 800"/>
+    <path class="circuit-line" d="M 1200 0 L 1200 400 L 1100 500 L 1100 900"/>
+    <path class="circuit-line alt" d="M 250 0 L 250 300 L 350 400 L 350 900"/>
+    
+    <circle class="circuit-node" cx="300" cy="150" r="4"/>
+    <circle class="circuit-node" cx="400" cy="250" r="4"/>
+    <circle class="circuit-node" cx="800" cy="250" r="4"/>
+    <circle class="circuit-node" cx="900" cy="150" r="4"/>
+    
+    <circle class="circuit-node alt" cx="400" cy="800" r="4"/>
+    <circle class="circuit-node alt" cx="500" cy="700" r="4"/>
+    <circle class="circuit-node alt" cx="1000" cy="700" r="4"/>
+    <circle class="circuit-node alt" cx="1100" cy="800" r="4"/>
+  </svg>
+  
+  <div class="wrap hero-inner">
+    <span class="hero-tag">
+      <span class="pulse"></span>
+      <span class="lang-mn">Эрчим хүч · Барилга угсралт · Автоматжуулалт</span>
+      <span class="lang-en">Power · Construction · Automation</span>
+    </span>
+    <h1>
+      <span class="lang-mn">Инженерийн<br><span class="l2">дэвшилтэт шийдэл</span></span>
+      <span class="lang-en">Advanced<br><span class="l2">Engineering Solutions</span></span>
+    </h1>
+    <div class="coord">P O W E R T O O L &nbsp;·&nbsp; E P C &nbsp;·&nbsp; E S T. 2014</div>
+    <p class="lead">
+      <span class="lang-mn">2014 оноос хойш Монголын эрчим хүч, дэд бүтцийн салбарт <b>инженерчлэл, худалдан авалт, барилга угсралтын (EPC)</b> цогц шийдлийг нэг цэгээс хүргэж байна.</span>
+      <span class="lang-en">Since 2014, delivering comprehensive <b>Engineering, Procurement, and Construction (EPC)</b> integrated solutions in Mongolia's power and infrastructure sectors.</span>
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">
+        <span class="lang-mn">Хэрэгжүүлсэн төслүүд</span>
+        <span class="lang-en">Completed Projects</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#about" class="btn btn-ghost">
+        <span class="lang-mn">Компанийн тухай</span>
+        <span class="lang-en">About Company</span>
+      </a>
+    </div>
+    <div class="hero-rail">
+      <div class="m">
+        <div class="v">11</div>
+        <div class="k lang-mn">Тусгай зөвшөөрөл</div>
+        <div class="k lang-en">Special Licenses</div>
+      </div>
+      <div class="m">
+        <div class="v">23<span class="u">+</span></div>
+        <div class="k lang-mn">Хэрэгжүүлсэн төсөл</div>
+        <div class="k lang-en">Completed Projects</div>
+      </div>
+      <div class="m">
+        <div class="v">21</div>
+        <div class="k lang-mn">Мэргэжлийн ажилтан</div>
+        <div class="k lang-en">Professional Staff</div>
+      </div>
+      <div class="m">
+        <div class="v">10<span class="u">+</span></div>
+        <div class="k lang-mn">Жилийн туршлага</div>
+        <div class="k lang-en">Years of Experience</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 01 ABOUT -->
+<section id="about" class="alt">
+  <div class="wrap">
+    <span class="eyebrow-sec">
+      <span class="lang-mn">01 / 11 — КОМПАНИЙН ТАНИЛЦУУЛГА</span>
+      <span class="lang-en">01 / 11 — COMPANY PROFILE</span>
+    </span>
+    <h2 class="sec-title">
+      <span class="lang-mn">Бид <span class="ac">технологийн</span> чадавхтай<br>үндэсний компани</span>
+      <span class="lang-en">We are a <span class="ac">technology-driven</span><br>national enterprise</span>
+    </h2>
+    <div class="about-grid">
+      <div>
+        <div class="lang-mn">
+          <p>«Повертүүл» ХХК нь <b>2014 онд</b> үүсгэн байгуулагдсан цагаасаа эхлэн эрчим хүч, барилга угсралт, автоматжуулалтын салбарт инженерийн иж бүрэн шийдэл нийлүүлэхэд төвлөрсөн, технологийн өндөр чадавхтай үндэсний компани юм.</p>
+          <p>Бид төслийг санаачлах, төлөвлөх, гүйцэтгэх, ашиглалтад хүлээлгэн өгөх хүртэлх бүх үе шатанд <b>инженерчлэл, худалдан авалт, барилга угсралтын (EPC)</b> цогц үйлчилгээг нэг цэгээс хүргэдэг.</p>
+          <p>Компани нь Эрчим хүчний яам болон Барилга, хот байгуулалтын яамнаас олгосон өргөн хүрээний тусгай зөвшөөрлийн хүрээнд олон улсын стандарт, чанарын шаардлагыг чанд баримтлан үйл ажиллагаагаа явуулдаг. Манай инженер, техникийн баг шинжлэх ухаан, технологийн дэвшлийг практикт нэвтрүүлэх, <b>техник-эдийн засгийн үндэслэл (ТЭЗҮ)</b> боловсруулах, нарийвчилсан судалгаа хийх чиглэлээр өндөр мэргэшсэн.</p>
+        </div>
+        <div class="lang-en">
+          <p>Since its establishment in <b>2014</b>, "Powertool" LLC has been a technology-driven national company focused on delivering comprehensive engineering solutions in power systems, construction, and industrial automation.</p>
+          <p>We provide unified <b>Engineering, Procurement, and Construction (EPC)</b> integrated services across all project phases, from feasibility study and planning through to execution, testing, and commissioning.</p>
+          <p>The company operates under multiple special licenses issued by the Ministry of Energy and the Ministry of Construction and Urban Development of Mongolia. Our engineering team is highly specialized in adapting scientific and technical advancements, preparing rigorous <b>Feasibility Studies (FS)</b>, and conducting detailed research.</p>
+        </div>
+      </div>
+      <div class="spec">
+        <div class="sh">
+          <span class="t">COMPANY / PROFILE</span>
+          <span class="d lang-mn">[ MN ]</span>
+          <span class="d lang-en">[ EN ]</span>
+        </div>
+        <div class="row">
+          <span class="k lang-mn">Үүсгэн байгуулагдсан</span>
+          <span class="k lang-en">Established</span>
+          <span class="v lang-mn">2014 он</span>
+          <span class="v lang-en">2014</span>
+        </div>
+        <div class="row">
+          <span class="k lang-mn">Үндсэн салбар</span>
+          <span class="k lang-en">Core Sectors</span>
+          <span class="v lang-mn">Эрчим хүч · Барилга · Автоматжуулалт</span>
+          <span class="v lang-en">Power · Construction · Automation</span>
+        </div>
+        <div class="row">
+          <span class="k lang-mn">Үйлчилгээний загвар</span>
+          <span class="k lang-en">Business Model</span>
+          <span class="v lang-mn">EPC цогц шийдэл</span>
+          <span class="v lang-en">Integrated EPC Solutions</span>
+        </div>
+        <div class="row">
+          <span class="k lang-mn">Эрх бүхий чадавх</span>
+          <span class="k lang-en">Licensed Capacity</span>
+          <span class="v lang-mn">11 тусгай зөвшөөрөл</span>
+          <span class="v lang-en">11 Special Licenses</span>
+        </div>
+        <div class="row">
+          <span class="k lang-mn">Стратегийн түншүүд</span>
+          <span class="k lang-en">Strategic Partners</span>
+          <span class="v">INHEMETER · AIROSD</span>
+        </div>
+        <div class="row">
+          <span class="k lang-mn">Үйл ажиллагааны хүрээ</span>
+          <span class="k lang-en">Scope of Operation</span>
+          <span class="v lang-mn">Монгол Улсын хэмжээнд</span>
+          <span class="v lang-en">Nationwide (Mongolia)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 VISION -->
+<section id="vision" class="dark vision">
+  <div class="wrap quote-big">
+    <span class="mk">“</span>
+    <span class="eyebrow-sec" style="justify-content:center">
+      <span class="lang-mn">02 / 11 — АЛСЫН ХАРАА</span>
+      <span class="lang-en">02 / 11 — VISION</span>
+    </span>
+    <h2>
+      <span class="lang-mn">Монголын эрчим хүч, дэд бүтцийн салбарт инженерийн дэвшилтэт шийдлээрээ <span class="hl">итгэл хүлээсэн</span>, бүс нутагтаа өрсөлдөхүйц <span class="hl">технологийн манлайлагч</span> компани байх.</span>
+      <span class="lang-en">To be a <span class="hl">trusted technology leader</span> in Mongolia's energy and infrastructure sectors, recognized for advanced engineering solutions and regional competitiveness.</span>
+    </h2>
+    <p>
+      <span class="lang-mn">Бид сэргээгдэх эрчим хүч, ухаалаг систем, эрчим хүчний хэмнэлтийн дэвшилтэт технологийг өргөнөөр нэвтрүүлэх замаар тогтвортой, ногоон ирээдүйг бүтээхэд хувь нэмрээ оруулахыг эрмэлздэг.</span>
+      <span class="lang-en">We strive to contribute to a sustainable, green future by implementing renewable energy resources, smart networks, and advanced energy-saving systems.</span>
+    </p>
+  </div>
+</section>
+
+<!-- 03 MISSION & VALUES -->
+<section id="values" class="alt">
+  <div class="wrap">
+    <span class="eyebrow-sec">
+      <span class="lang-mn">03 / 11 — ЭРХЭМ ЗОРИЛГО БА ҮНЭТ ЗҮЙЛ</span>
+      <span class="lang-en">03 / 11 — MISSION & VALUES</span>
+    </span>
+    <p class="mission-banner">
+      <span class="lang-mn">Мэргэжлийн ёс зүй, бүтээлч хандлага, дэвшилтэт технологийг хослуулан, төсөл бүрийг <span class="ac">чанар, аюулгүй байдал, хариуцлагын баталгаа</span> болгон хэрэгжүүлэх.</span>
+      <span class="lang-en">To deliver every project as a benchmark of <span class="ac">quality, safety, and accountability</span> by combining professional ethics, creative problem-solving, and advanced engineering technologies.</span>
+    </p>
+    
+    <div class="val-grid">
+      <div class="val">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h4 class="lang-mn">Шударга, ил тод</h4>
+        <h4 class="lang-en">Transparency</h4>
+        <p class="lang-mn">Бүх түвшинд ёс зүйтэй, нээлттэй, хариуцлагатай хамтын ажиллагааг эрхэмлэдэг.</p>
+        <p class="lang-en">We promote ethical, transparent, and accountable cooperation across all levels.</p>
+      </div>
+      <div class="val">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h4 class="lang-mn">Найдвартай түншлэл</h4>
+        <h4 class="lang-en">Reliability</h4>
+        <p class="lang-mn">Харилцагчийн итгэлийг үүрэг хариуцлага хэмээн хүлээж, амласан үүргээ хугацаанд нь биелүүлнэ.</p>
+        <p class="lang-en">We regard client trust as our core responsibility, delivering on schedule.</p>
+      </div>
+      <div class="val">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h4 class="lang-mn">Чанарын манлайлал</h4>
+        <h4 class="lang-en">Quality Leadership</h4>
+        <p class="lang-mn">Гүйцэтгэл бүртээ дээд стандартыг тогтоож, чанарыг үйл ажиллагааны гол хэмжүүр болгоно.</p>
+        <p class="lang-en">We establish internal high standards, using quality as the fundamental metric.</p>
+      </div>
+      <div class="val">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+        </div>
+        <h4 class="lang-mn">Шинэлэг шийдэл</h4>
+        <h4 class="lang-en">Innovation</h4>
+        <p class="lang-mn">Технологийн дэвшил, бүтээлч санаачилгад суурилсан үр ашигтай шийдлийг санал болгоно.</p>
+        <p class="lang-en">We propose optimal and highly cost-effective solutions powered by tech updates.</p>
+      </div>
+      <div class="val">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
+        </div>
+        <h4 class="lang-mn">Хүртээмжтэй үйлчилгээ</h4>
+        <h4 class="lang-en">Accessibilities</h4>
+        <p class="lang-mn">Харилцагч бүрийн хэрэгцээнд нийцсэн, уян хатан, тогтвортой үйлчилгээг хүргэнэ.</p>
+        <p class="lang-en">We deliver flexible, highly accessible services matching client requirements.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 OPERATIONS -->
+<section id="operations" class="dark">
+  <div class="wrap">
+    <span class="eyebrow-sec">
+      <span class="lang-mn">04 / 11 — ҮНДСЭН ҮЙЛ АЖИЛЛАГАА</span>
+      <span class="lang-en">04 / 11 — CORE OPERATIONS</span>
+    </span>
+    <h2 class="sec-title">
+      <span class="lang-mn">EPC <span class="ac">цогц шийдэл</span></span>
+      <span class="lang-en">Comprehensive <span class="ac">EPC Solutions</span></span>
+    </h2>
+    <p class="sec-intro">
+      <span class="lang-mn">Төслийг санаачлах, төлөвлөх, тоног төхөөрөмж худалдан авах, угсрах, ашиглалтад хүлээлгэн өгөх хүртэлх бүх шатыг цогцоор гүйцэтгэнэ.</span>
+      <span class="lang-en">From initial layout design and equipment sourcing to site installation and final commissioning, we execute the entire engineering loop.</span>
+    </p>
+    
+    <div class="op-grid">
+      <!-- E -->
+      <div class="op">
+        <span class="epc">E</span>
+        <div class="num">4.1 / ENGINEERING</div>
+        <h3 class="lang-mn">Инженерчлэл ба зөвлөх</h3>
+        <h3 class="lang-en">Engineering & Consulting</h3>
+        <ul class="lang-mn">
+          <li><b>Төслийн ТЭЗҮ ба судалгаа.</b> Техник-эдийн засгийн үндэслэл, эрчим хүчний аудит, мэргэжлийн тайлан.</li>
+          <li><b>Сэргээгдэх эрчим хүч.</b> Нар, салхины эх үүсвэрийн төлөвлөлт, дизайн, инженерийн шийдэл.</li>
+          <li><b>Ухаалаг систем.</b> AMI/HES тоолуурын дизайн, хяналт-удирдлагын систем.</li>
+          <li><b>Мэдээллийн технологи.</b> Эрчим хүчний салбарт зориулсан захиалгат ПО, IT шийдэл.</li>
+          <li><b>Инженерийн тооцоо.</b> Дулаан алдагдал, чадал, хөрөнго оруулалт, эргэн төлөгдөх хугацаа.</li>
+        </ul>
+        <ul class="lang-en">
+          <li><b>Feasibility Studies & Audits.</b> FS formulation, comprehensive energy audits, and technical reports.</li>
+          <li><b>Renewable Energy.</b> Planning, design, and detailed engineering for solar and wind power plants.</li>
+          <li><b>Smart Networks.</b> System design for AMI/HES smart metering and grid monitoring applications.</li>
+          <li><b>Information Technology.</b> Custom enterprise software development and IT solutions tailored for utilities.</li>
+          <li><b>Technical Modeling.</b> Thermal efficiency modeling, load sizing, financial modeling, and ROI estimation.</li>
+        </ul>
+      </div>
+      <!-- P -->
+      <div class="op">
+        <span class="epc">P</span>
+        <div class="num">4.2 / PROCUREMENT</div>
+        <h3 class="lang-mn">Худалдан авалт, нийлүүлэлт</h3>
+        <h3 class="lang-en">Procurement & Supply</h3>
+        <ul class="lang-mn">
+          <li><b>Эрчим хүчний тоноглол.</b> Трансформатор, өндөр/нам хүчдэлийн кабель, агаарын шугам.</li>
+          <li><b>Ухаалаг хэрэглээ.</b> Нэг ба гурван фазын ухаалаг тоолуур, HES/MDM систем.</li>
+          <li><b>Дэвшилтэт технологи.</b> Дулааны насос, салхин турбин, нарны панель, коллектор.</li>
+          <li><b>Дэд бүтцийн төхөөрөмж.</b> Мотор, VFD, насос, компрессор, DC систем, батарей.</li>
+          <li><b>Удирдлага, цахилгааны самбар.</b> Ерөнхий шит, гэрэлтүүлэг, моторын удирдлага, автоматжуулалт.</li>
+        </ul>
+        <ul class="lang-en">
+          <li><b>Power Grid Infrastructure.</b> High/low voltage transformers, power cables, and substation hardware.</li>
+          <li><b>Smart Metering Equipment.</b> Single/three-phase smart meters, and enterprise HES/MDM software.</li>
+          <li><b>Green Tech Components.</b> High-efficiency air-source heat pumps, wind turbines, and solar panels.</li>
+          <li><b>Industrial Machinery.</b> Electric motors, VFD units, pumps, compressors, battery storage, and DC systems.</li>
+          <li><b>Switchgear & Control Panels.</b> Main distribution boards (MDB), MCC, lighting controls, and SCADA links.</li>
+        </ul>
+      </div>
+      <!-- C -->
+      <div class="op">
+        <span class="epc">C</span>
+        <div class="num">4.3 / CONSTRUCTION</div>
+        <h3 class="lang-mn">Менежмент, барилга угсралт</h3>
+        <h3 class="lang-en">Construction & Installation</h3>
+        <ul class="lang-mn">
+          <li><b>Шугам сүлжээ, дэд станц.</b> 0.4–220 кВ ЦДАШ, кабель шугам, дэд станцын угсралт, туршилт.</li>
+          <li><b>Барилгын угсралт.</b> Ус хангамж, ариутгах татуурга, дулаан, цахилгаан, холбоо дохиолол, гал.</li>
+          <li><b>Автоматжуулалт.</b> SCADA систем, хяналт-удирдлагын автоматжуулалт, тохируулга.</li>
+          <li><b>Дулаан, хөргөлт (Heat Pump).</b> Амины орон сууцнаас худалдааны объект хүртэлх цогц шийдэл.</li>
+        </ul>
+        <ul class="lang-en">
+          <li><b>Substations & Lines.</b> Erection and testing of 0.4–220 kV overhead transmission lines and substations.</li>
+          <li><b>MEP Works.</b> Water supply, sewer mains, internal piping, electrical networks, telecom, and fire safety systems.</li>
+          <li><b>Automation Systems.</b> SCADA deployment, field instrumentation, telemetry calibration, and tuning.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- DYNAMIC ENGINEERING SCADA & TELEMETRY MODULE -->
+    <div class="eng-dashboard">
+      <!-- Interactive Grid Schematic Panel -->
+      <div class="eng-panel">
+        <div class="panel-title">
+          <span class="pulse-dot"></span>
+          <span class="lang-mn">Интерактив Сүлжээний Схем (SCADA)</span>
+          <span class="lang-en">Interactive SCADA Grid Layout</span>
+        </div>
+        <p style="font-size:12.5px; color:var(--text-muted-light); margin-bottom: 20px; line-height: 1.5;">
+          <span class="lang-mn">Хянах самбарын таслуур (CB1, CB2) дээр дарж сүлжээний шугамыг салгаж, залгаж туршина уу. Эрчим хүчний урсгалыг динамикаар хянана.</span>
+          <span class="lang-en">Click on the circuit breakers (CB1, CB2) in the diagram to simulate grid disconnects and monitor telemetry paths dynamically.</span>
+        </p>
+        
+        <div class="scada-container">
+          <svg class="scada-svg" viewBox="0 0 240 130">
+            <!-- Grid Lines -->
+            <path id="line1" class="scada-line active" d="M 20 65 L 60 65"/>
+            <path id="line2" class="scada-line active" d="M 90 65 L 150 65"/>
+            <path id="line3" class="scada-line active" d="M 150 65 L 150 25 L 190 25"/>
+            <path id="line4" class="scada-line active" d="M 150 65 L 150 105 L 190 105"/>
+            
+            <!-- Animated Electron Flows -->
+            <path id="flow1" class="scada-glow-flow active" d="M 20 65 L 60 65"/>
+            <path id="flow2" class="scada-glow-flow active" d="M 90 65 L 150 65"/>
+            <path id="flow3" class="scada-glow-flow active" d="M 150 65 L 150 25 L 190 25"/>
+            <path id="flow4" class="scada-glow-flow active" d="M 150 65 L 150 105 L 190 105"/>
+            
+            <!-- Grid Elements -->
+            <!-- Gen Source -->
+            <circle class="scada-node active" cx="20" cy="65" r="7"/>
+            <text class="scada-label active" x="20" y="80" text-anchor="middle">GEN1</text>
+            <path d="M 16 65 Q 20 57 20 65 T 24 65" stroke="#101820" stroke-width="1.2" fill="none"/>
+            
+            <!-- Breaker 1 (CB1) -->
+            <g id="cb1" class="scada-breaker on" onclick="toggleBreaker('cb1')">
+              <rect x="60" y="55" width="30" height="20" rx="3" />
+              <text x="75" y="67">CB1</text>
+            </g>
+            
+            <!-- Substation Bus Bar -->
+            <line class="scada-line active" x1="150" y1="20" x2="150" y2="110" style="stroke-width: 4;"/>
+            <text class="scada-label active" x="150" y="15" text-anchor="middle">BUS-A</text>
+            
+            <!-- Breaker 2 (CB2 - on Line A) -->
+            <g id="cb2" class="scada-breaker on" onclick="toggleBreaker('cb2')">
+              <rect x="180" y="15" width="26" height="20" rx="3" />
+              <text x="193" y="27">CB2</text>
+            </g>
+            
+            <!-- Load Substation A -->
+            <rect id="nodeSubA" class="scada-node active" x="210" y="17" width="16" height="16" rx="2" style="fill: var(--teal-500);"/>
+            <text class="scada-label active" x="218" y="42" text-anchor="middle">SUB-A</text>
+            
+            <!-- Load Substation B -->
+            <rect id="nodeSubB" class="scada-node active" x="210" y="97" width="16" height="16" rx="2" style="fill: var(--teal-500);"/>
+            <text class="scada-label active" x="218" y="122" text-anchor="middle">SUB-B</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Real-Time Telemetry Monitor Panel -->
+      <div class="eng-panel">
+        <div class="panel-title">
+          <span class="pulse-dot"></span>
+          <span class="lang-mn">Сүлжээний Идэвхтэй Телеметр</span>
+          <span class="lang-en">Substation Live Telemetry</span>
+        </div>
+        <p style="font-size:12.5px; color:var(--text-muted-light); margin-bottom: 20px; line-height: 1.5;">
+          <span class="lang-mn">Сүлжээний ачаалал, хүчдэл болон фазын синусоид долгионыг хянах хэсэг.</span>
+          <span class="lang-en">Real-time system health checks and phase stability oscilloscope output of active feeders.</span>
+        </p>
+
+        <!-- Oscilloscope screen -->
+        <div class="osc-container">
+          <canvas id="oscCanvas" class="osc-canvas"></canvas>
+        </div>
+
+        <div class="telemetry-grid">
+          <div class="tel-card">
+            <span class="lbl lang-mn">Сүлжээний давтамж</span>
+            <span class="lbl lang-en">Grid Frequency</span>
+            <span class="val" id="telFreq">50.00<span class="unit">Hz</span></span>
+          </div>
+          <div class="tel-card">
+            <span class="lbl lang-mn">Шугам А хүчдэл</span>
+            <span class="lbl lang-en">Line A Voltage</span>
+            <span class="val" id="telVolt">220.1<span class="unit">kV</span></span>
+          </div>
+          <div class="tel-card">
+            <span class="lbl lang-mn">Чадлын коэффициент</span>
+            <span class="lbl lang-en">Power Factor</span>
+            <span class="val" id="telPF">0.985</span>
+          </div>
+          <div class="tel-card">
+            <span class="lbl lang-mn">Сүлжээний төлөв</span>
+            <span class="lbl lang-en">Grid Status</span>
+            <span class="val" id="telStatus" style="color: #4cd964; font-size: 16px; margin-top: 4px;">NOMINAL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 LICENSES -->
+<section id="licenses" class="alt">
+  <div class="wrap">
+    <div class="lic-head">
+      <div>
+        <span class="eyebrow-sec">
+          <span class="lang-mn">05 / 11 — ЭРХ БҮХИЙ ЧАДАВХ</span>
+          <span class="lang-en">05 / 11 — CAPABILITIES</span>
+        </span>
+        <h2 class="sec-title">
+          <span class="lang-mn">Тусгай <span class="ac">зөвшөөрөл</span></span>
+          <span class="lang-en">Special <span class="ac">Licenses</span></span>
+        </h2>
+        <p class="sec-intro">
+          <span class="lang-mn">Эрчим хүчний яам болон Барилга, хот байгуулалтын яамнаас олгосон зөвшөөрлийн хүрээнд өндөр төвөгшилтэй ажлыг хууль ёсны дагуу гүйцэтгэх эрхтэй.</span>
+          <span class="lang-en">Fully authorized to execute high-complexity engineering works under special permits issued by the Ministry of Energy and the Ministry of Construction of Mongolia.</span>
+        </p>
+      </div>
+      <div class="lic-count">
+        <div class="big">11</div>
+        <div class="lbl lang-mn">Тусгай<br>зөвшөөрөл</div>
+        <div class="lbl lang-en">Special<br>Licenses</div>
+      </div>
+    </div>
+
+    <!-- Tabs Container -->
+    <div class="lic-tabs-wrapper">
+      <div class="lic-tabs">
+        <button class="tab-btn active" onclick="switchTab(event, 'all-lic')">
+          <span class="lang-mn">Бүх зөвшөөрөл (11)</span>
+          <span class="lang-en">All Licenses (11)</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab(event, 'energy-lic')">
+          <span class="lang-mn">Эрчим хүчний яам (2)</span>
+          <span class="lang-en">Ministry of Energy (2)</span>
+        </button>
+        <button class="tab-btn" onclick="switchTab(event, 'const-lic')">
+          <span class="lang-mn">Барилга, хот байгуулалтын яам (9)</span>
+          <span class="lang-en">Ministry of Construction (9)</span>
+        </button>
+      </div>
+
+      <!-- Tab Content: All -->
+      <div id="all-lic" class="lic-pane active">
+        <div class="lic"><span class="code">ТЗ-1.2</span><p class="lang-mn">0.1–100 МВт эрчим хүчний эх үүсвэр барих, угсрах, засварлах, туршилт тохируулга, дагалдах үйлчилгээ.</p><p class="lang-en">Construction, installation, maintenance, testing, and commissioning of 0.1–100 MW power plants and facilities.</p></div>
+        <div class="lic"><span class="code">ТЗ-2.4</span><p class="lang-mn">220 кВ ба түүнээс доош ЦДАШ, дэд станцын засвар, угсралт, туршилт тохируулга, дагалдах үйлчилгээ.</p><p class="lang-en">Installation, repair, testing, and calibration of overhead power lines up to 220 kV and electrical substations.</p></div>
+        <div class="lic bld"><span class="code">БА-4.1</span><p class="lang-mn">Цутгамал, угсармал төмөр бетон арагт бүтээц, барилгын угсралт, өргөтгөл, засвар (өндөр төвөгшил).</p><p class="lang-en">Cast-in-place and pre-cast concrete frame erection, building construction, expansion, and structural repairs (High complexity).</p></div>
+        <div class="lic bld"><span class="code">БА-4.2</span><p class="lang-mn">Усны барилга байгууламжийн угсралт, өргөтгөл, засвар шинэчлэлт, тохижилт (өндөр төвөгшил).</p><p class="lang-en">Construction, expansion, renovation, and landscaping of hydraulic engineering systems and water infrastructure (High complexity).</p></div>
+        <div class="lic bld"><span class="code">БА-4.3</span><p class="lang-mn">Ус хангамж, ариутгах татуургын системийн шугам сүлжээ, тоног төхөөрөмжийн угсралт (өндөр төвөгшил).</p><p class="lang-en">Installation and testing of municipal water supply lines, sewer mains, and technical equipment (High complexity).</p></div>
+        <div class="lic bld"><span class="code">БА-4.4</span><p class="lang-mn">Дулааны гол (магистраль) шугам сүлжээ, түүний тоног төхөөрөмжийн угсралт (өндөр төвөгшил).</p><p class="lang-en">Installation of district heating main pipelines, distribution networks, and industrial equipment (High complexity).</p></div>
+        <div class="lic bld"><span class="code">БА-4.5</span><p class="lang-mn">Цахилгаан дамжуулах шугам сүлжээ, дэд станц, тоног төхөөрөмжийн угсралт (өндөр төвөгшил).</p><p class="lang-en">Construction of power transmission networks, sub-station grids, and related automation apparatus (High complexity).</p></div>
+        <div class="lic bld"><span class="code">БА-6.1</span><p class="lang-mn">Барилгын дотор ус хангамж, ариутгах татуурга, гадна салбар шугмын угсралт (бага–өндөр).</p><p class="lang-en">Installation of indoor plumbing, water supply and sewer pipelines, and external local network connections (Low-High).</p></div>
+        <div class="lic bld"><span class="code">БА-6.2</span><p class="lang-mn">Барилгын дотор халаалт, салхивч, хөргөх байгууламж, гадна салбар шугмын угсралт (бага–өндөр).</p><p class="lang-en">Installation of indoor HVAC systems (heating, ventilation, cooling) and external local network piping (Low-High).</p></div>
+        <div class="lic bld"><span class="code">БА-6.3</span><p class="lang-mn">Барилгын дотор гэрэлтүүлэг, цахилгаан хангамжийн угсралт, гадна салбар шугам (бага–өндөр).</p><p class="lang-en">Installation of indoor electrical cabling, lighting grids, power distribution boards, and external grid ties (Low-High).</p></div>
+        <div class="lic bld"><span class="code">БА-6.4</span><p class="lang-mn">Холбоо дохиолол, internet сүлжээ, гал унтраах болон галын аюулын дохиоллын системийн угсралт (бага–өндөр).</p><p class="lang-en">Installation of low-voltage networks (telecom, internet), fire suppression, and automated alarm systems (Low-High).</p></div>
+      </div>
+
+      <!-- Tab Content: Energy -->
+      <div id="energy-lic" class="lic-pane">
+        <div class="lic"><span class="code">ТЗ-1.2</span><p class="lang-mn">0.1–100 МВт эрчим хүчний эх үүсвэр барих, угсрах, засварлах, туршилт тохируулга, дагалдах үйлчилгээ.</p><p class="lang-en">Construction, installation, maintenance, testing, and commissioning of 0.1–100 MW power plants and facilities.</p></div>
+        <div class="lic"><span class="code">ТЗ-2.4</span><p class="lang-mn">220 кВ ба түүнээс доош ЦДАШ, дэд станцын засвар, угсралт, туршилт тохируулга, дагалдах үйлчилгээ.</p><p class="lang-en">Installation, repair, testing, and calibration of overhead power lines up to 220 kV and electrical substations.</p></div>
+      </div>
+
+      <!-- Tab Content: Construction -->
+      <div id="const-lic" class="lic-pane">
+        <div class="lic bld"><span class="code">БА-4.1</span><p class="lang-mn">Цутгамал, угсармал төмөр бетон арагт бүтээц, барилгын угсралт, өргөтгөл, засвар (өндөр төвөгшил).</p><p class="lang-en">Cast-in-place and pre-cast concrete frame erection, building construction, expansion, and structural repairs (High complexity).</p></div>
+        <div class="lic bld"><span class="code">БА-4.2</span><p class="lang-mn">Усны барилга байгууламжийн угсралт, өргөтгөл, засвар шинэчлэлт, тохижилт (өндөр төвөгшил).</p><p class="lang-en">Construction, expansion, renovation, and landscaping of hydraulic engineering systems and water infrastructure (High complexity).</p></div>
+        <div class="lic bld"><span class="code">БА-4.3</span><p class="lang-mn">Ус хангамж, ариутгах татуургын системийн шугам сүлжээ, тоног төхөөрөмжийн угсралт (өндөр төвөгшил).</p><p class="lang-en">Installation and testing of municipal water supply lines, sewer mains, and technical equipment (High complexity).</p></div>
+        <div class="lic bld"><span class="code">БА-4.4</span><p class="lang-mn">Дулааны гол (магистраль) шугам сүлжээ, түүний тоног төхөөрөмжийн угсралт (өндөр төвөгшил).</p><p class="lang-en">Installation of district heating main pipelines, distribution networks, and industrial equipment (High complexity).</p></div>
+        <div class="lic bld"><span class="code">БА-4.5</span><p class="lang-mn">Цахилгаан дамжуулах шугам сүлжээ, дэд станц, тоног төхөөрөмжийн угсралт (өндөр төвөгшил).</p><p class="lang-en">Construction of power transmission networks, sub-station grids, and related automation apparatus (High complexity).</p></div>
+        <div class="lic bld"><span class="code">БА-6.1</span><p class="lang-mn">Барилгын дотор ус хангамж, ариутгах татуурга, гадна салбар шугмын угсралт (бага–өндөр).</p><p class="lang-en">Installation of indoor plumbing, water supply and sewer pipelines, and external local network connections (Low-High).</p></div>
+        <div class="lic bld"><span class="code">БА-6.2</span><p class="lang-mn">Барилгын дотор халаалт, салхивч, хөргөх байгууламж, гадна салбар шугмын угсралт (бага–өндөр).</p><p class="lang-en">Installation of indoor HVAC systems (heating, ventilation, cooling) and external local network piping (Low-High).</p></div>
+        <div class="lic bld"><span class="code">БА-6.3</span><p class="lang-mn">Барилгын дотор гэрэлтүүлэг, цахилгаан хангамжийн угсралт, гадна салбар шугам (бага–өндөр).</p><p class="lang-en">Installation of indoor electrical cabling, lighting grids, power distribution boards, and external grid ties (Low-High).</p></div>
+        <div class="lic bld"><span class="code">БА-6.4</span><p class="lang-mn">Холбоо дохиолол, internet сүлжээ, гал унтраах болон галын аюулын дохиоллын системийн угсралт (бага–өндөр).</p><p class="lang-en">Installation of low-voltage networks (telecom, internet), fire suppression, and automated alarm systems (Low-High).</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 ADVANTAGES -->
+<section id="advantages" class="alt">
+  <div class="wrap">
+    <span class="eyebrow-sec">
+      <span class="lang-mn">06 / 11 — БИДНИЙ ДАВУУ ТАЛ</span>
+      <span class="lang-en">06 / 11 — OUR ADVANTAGES</span>
+    </span>
+    <h2 class="sec-title">
+      <span class="lang-mn">Яагаад <span class="ac">POWERTOOL</span> гэж?</span>
+      <span class="lang-en">Why Choose <span class="ac">POWERTOOL</span>?</span>
+    </h2>
+    <div class="adv-grid">
+      <div class="adv">
+        <div class="n">01</div>
+        <h4 class="lang-mn">EPC нэг цэгийн шийдэл</h4>
+        <h4 class="lang-en">One-Stop EPC Solution</h4>
+        <p class="lang-mn">Төлөвлөлтөөс нийлүүлэлт, угсралт, ашиглалт хүртэл нэгдсэн хариуцлагатайгаар нэг цэгээс хүргэдэг.</p>
+        <p class="lang-en">We deliver unified accountability from initial layout design and equipment procurement to installation and final commissioning.</p>
+      </div>
+      <div class="adv">
+        <div class="n">02</div>
+        <h4 class="lang-mn">Мэргэшсэн инженерийн баг</h4>
+        <h4 class="lang-en">Expert Engineering Team</h4>
+        <p class="lang-mn">ТЭЗҮ, судалгаа, дизайн, угсралт, туршилт тохируулгын бүх үе шатыг дотоодын чадавхаараа гүйцэтгэнэ.</p>
+        <p class="lang-en">All stages of feasibility studies, project engineering, site installation, and telemetry tuning are handled by our dedicated in-house team.</p>
+      </div>
+      <div class="adv">
+        <div class="n">03</div>
+        <h4 class="lang-mn">Олон улсын брэндийн эрх</h4>
+        <h4 class="lang-en">International Brand Rights</h4>
+        <p class="lang-mn">Schneider Electric, INHEMETER зэрэг дэлхийд танигдсан үйлдвэрлэгчдийн албан ёсны түнш, дистрибьютер.</p>
+        <p class="lang-en">Official partner and direct distributor for world-leading automation and power brands such as Schneider Electric and INHEMETER.</p>
+      </div>
+      <div class="adv">
+        <div class="n">04</div>
+        <h4 class="lang-mn">Өргөн хүрээний зөвшөөрөл</h4>
+        <h4 class="lang-en">Comprehensive Licensing</h4>
+        <p class="lang-mn">Эрчим хүч, өндөр төвөгшилтэй барилга байгууламжийн салбарт 11 тусгай зөвшөөрөл эзэмшдэг.</p>
+        <p class="lang-en">We hold 11 high-level special licenses covering utility systems and high-complexity civil infrastructure construction.</p>
+      </div>
+      <div class="adv">
+        <div class="n">05</div>
+        <h4 class="lang-mn">Сэргээгдэх эрчим хүчний мэргэшил</h4>
+        <h4 class="lang-en">Renewable Tech Expertise</h4>
+        <p class="lang-mn">Нар, салхи, дулааны насос (heat pump), ухаалаг тоолуурын чиглэлээр гүнзгий мэдлэг, туршлагатай.</p>
+        <p class="lang-en">Deep engineering expertise in integrating solar PV grids, wind networks, air-source heat pumps, and automated smart meters.</p>
+      </div>
+      <div class="adv">
+        <div class="n">06</div>
+        <h4 class="lang-mn">Чанар, аюулгүй байдлын соёл</h4>
+        <h4 class="lang-en">Quality & HSE Culture</h4>
+        <p class="lang-mn">Олон улсын стандарт, дотоодын хууль тогтоомжид нийцсэн чанарын хяналт, аюулгүй ажиллагаа.</p>
+        <p class="lang-en">HSE and quality control protocols integrated at every operational level, fully compliant with national codes and international standards.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 PROJECTS -->
+<section id="projects" class="dark">
+  <div class="wrap">
+    <span class="eyebrow-sec">
+      <span class="lang-mn">07 / 11 — ХЭРЭГЖҮҮЛСЭН ТӨСЛҮҮД</span>
+      <span class="lang-en">07 / 11 — COMPLETED PROJECTS</span>
+    </span>
+    <h2 class="sec-title">
+      <span class="lang-mn">Бодит <span class="ac">гүйцэтгэл</span></span>
+      <span class="lang-en">Track <span class="ac">Record</span></span>
+    </h2>
+    <p class="sec-intro">
+      <span class="lang-mn">Эрчим хүч, дэд бүтэц, барилга угсралт, автоматжуулалт, сэргээгдэх эрчим хүчний чиглэлээр улсын болон олон улсын хэмжээний төслүүдийг амжилттай хэрэгжүүлсэн.</span>
+      <span class="lang-en">Successfully completed high-complexity projects in power networks, urban utilities infrastructure, industrial automation, and green energy generation.</span>
+    </p>
+    
+    <div class="proj-filter">
+      <button class="active" data-f="all">
+        <span class="lang-mn">Бүгд</span><span class="lang-en">All</span>
+      </button>
+      <button data-f="energy">
+        <span class="lang-mn">Эрчим хүч / Шугам сүлжээ</span><span class="lang-en">Power Grids</span>
+      </button>
+      <button data-f="renew">
+        <span class="lang-mn">Сэргээгдэх эрчим хүч</span><span class="lang-en">Renewables</span>
+      </button>
+      <button data-f="bld">
+        <span class="lang-mn">Барилга / Автоматжуулалт</span><span class="lang-en">Construction & Automation</span>
+      </button>
+    </div>
+
+    <div class="proj-list" id="projList">
+      <div class="proj" data-cat="energy"><span class="yr">2020</span><div><div class="ttl lang-mn">Тавантолгой–Зүүнбаян төмөр замын цахилгаан хангамж — 35 кВ-ын 2 хэлхээт ЦДАШ, 100 км</div><div class="ttl lang-en">Tavantolgoi-Zuunbayan railway power supply — 35 kV double-circuit overhead line, 100 km</div><div class="cli lang-mn">«Монголын төмөр зам» ТӨХК</div><div class="cli lang-en">Mongolian Railway State-Owned Co.</div></div><span class="badge"><span class="lang-mn">Эрчим хүч</span><span class="lang-en">Power</span></span></div>
+      <div class="proj" data-cat="energy"><span class="yr">2020</span><div><div class="ttl lang-mn">110 кВ Баянчандмань дэд станцын өндөр давтамжийн холбоо (PLC) тоног төхөөрөмж</div><div class="ttl lang-en">High-frequency power line carrier (PLC) automation for 110 kV Bayanchandman substation</div><div class="cli lang-mn">«ЦДҮС» ТӨХК</div><div class="cli lang-en">National Power Transmission Grid Co.</div></div><span class="badge"><span class="lang-mn">Эрчим хүч</span><span class="lang-en">Power</span></span></div>
+      <div class="proj" data-cat="bld"><span class="yr">2021</span><div><div class="ttl lang-mn">Дарьганга зуслангийн аялал жуулчлалын цогцолборын гадна инженерийн шугам сүлжээ</div><div class="ttl lang-en">External utility networks and water grids for Dariganga tourist complex</div><div class="cli lang-mn">Сүхбаатар аймгийн ЗДТГ</div><div class="cli lang-en">Sukhbaatar Governor's Office</div></div><span class="badge"><span class="lang-mn">Барилга</span><span class="lang-en">Construction</span></span></div>
+      <div class="proj" data-cat="energy"><span class="yr">2021</span><div><div class="ttl lang-mn">Тавантолгой–Гашуунсухайт төмөр замын 35 кВ-ын 2 хэлхээт ЦДАШ, 78 км</div><div class="ttl lang-en">Tavantolgoi-Gashuunsukhait railway 35 kV double-circuit overhead line, 78 km</div><div class="cli lang-mn">«Бодь Интернэшнл» ХХК</div><div class="cli lang-en">Bodi International LLC</div></div><span class="badge"><span class="lang-mn">Эрчим хүч</span><span class="lang-en">Power</span></span></div>
+      <div class="proj" data-cat="energy"><span class="yr">2022</span><div><div class="ttl lang-mn">Хайрхан, Амралт, Толгойт фидерүүдийн хэрэглэгчдийг ухаалаг тоолуурын системд холбох</div><div class="ttl lang-en">Smart metering integration and billing setup on Khairkhan, Amralt, and Tolgoit feeders</div><div class="cli lang-mn">«УБЦТС» ТӨХК</div><div class="cli lang-en">Ulaanbaatar Electricity Distribution Network Co.</div></div><span class="badge"><span class="lang-mn">Эрчим хүч</span><span class="lang-en">Power</span></span></div>
+      <div class="proj" data-cat="bld"><span class="yr">2022</span><div><div class="ttl lang-mn">Үлээх салхилуур №1-ийн давтамж хувиргуур, хөдөлгүүр шинэчлэл, удирдлагын самбар</div><div class="ttl lang-en">Frequency inverter installation, motor overhaul, and control panel for air blower №1</div><div class="cli lang-mn">«ДБЭХС» ТӨХК</div><div class="cli lang-en">Eastern Region Energy System Co.</div></div><span class="badge"><span class="lang-mn">Автоматжуулалт</span><span class="lang-en">Automation</span></span></div>
+      <div class="proj" data-cat="energy"><span class="yr">2022</span><div><div class="ttl lang-mn">Хөшөөтийн шахмал түлшний үйлдвэрийн 110 кВ-ын ЦДАШ, 30 км (Ховд, Дарви)</div><div class="ttl lang-en">110 kV transmission line construction for Khoshoot briquette plant, 30 km (Khovd, Darvi)</div><div class="cli lang-mn">Эрчим хүчний яам</div><div class="cli lang-en">Ministry of Energy</div></div><span class="badge"><span class="lang-mn">Эрчим хүч</span><span class="lang-en">Power</span></span></div>
+      <div class="proj" data-cat="energy"><span class="yr">2022</span><div><div class="ttl lang-mn">Өндөр хүчдэлийн цахилгаан хөдөлгүүрийг зөөлөн асаалтын шкафтай нийлүүлэх</div><div class="ttl lang-en">Supply and integration of high-voltage soft starter panels for electric motors</div><div class="cli lang-mn">«ДЦС-4» ТӨХК</div><div class="cli lang-en">Thermal Power Plant 4 State-Owned Co.</div></div><span class="badge"><span class="lang-mn">Эрчим хүч</span><span class="lang-en">Power</span></span></div>
+      <div class="proj" data-cat="energy"><span class="yr">2023</span><div><div class="ttl lang-mn">Дэд станцуудад тэжээлийн инвертор шкаф нийлүүлэх (5 дэд станц)</div><div class="ttl lang-en">Supply of DC/AC power inverter panels for 5 national grid substations</div><div class="cli lang-mn">«ДҮТ» ТӨХК</div><div class="cli lang-en">National Dispatching Center State-Owned Co.</div></div><span class="badge"><span class="lang-mn">Эрчим хүч</span><span class="lang-en">Power</span></span></div>
+      <div class="proj" data-cat="energy"><span class="yr">2023</span><div><div class="ttl lang-mn">«Орчлон-Орд» уурхайн гадна цахилгаан хангамж — 15 кВ-ын 27 км ЦДАШ, дэд станц</div><div class="ttl lang-en">External power supply engineering for Orchlon-Ord mine — 15 kV overhead line 27 km & substation</div><div class="cli lang-mn">«Орчлон-Орд» ХХК</div><div class="cli lang-en">Orchlon-Ord LLC</div></div><span class="badge"><span class="lang-mn">Эрчим хүч</span><span class="lang-en">Power</span></span></div>
+      <div class="proj" data-cat="bld"><span class="yr">2023</span><div><div class="ttl lang-mn">Сүхбаатар аймгийн ОБГ-ын гадна, дотор цахилгаан хангамжийн ажил</div><div class="ttl lang-en">Indoor/outdoor electrical wiring and substation works for Sukhbaatar emergency branch</div><div class="cli lang-mn">Сүхбаатар аймгийн ОБГ</div><div class="cli lang-en">Sukhbaatar National Emergency Management Agency</div></div><span class="badge"><span class="lang-mn">Барилга</span><span class="lang-en">Construction</span></span></div>
+      <div class="proj" data-cat="bld"><span class="yr">2023</span><div><div class="ttl lang-mn">Үндэсний соёл амралтын хүрээлэнгийн 10.2 га газрын холбоо дохиолол, цахилгаан хангамж</div><div class="ttl lang-en">MEP electrical wiring and communication systems for 10.2 ha site at National Amusement Park</div><div class="cli lang-mn">«Говийн нар констракшн» ХХК</div><div class="cli lang-en">Gobiin Nar Construction LLC</div></div><span class="badge"><span class="lang-mn">Барилга</span><span class="lang-en">Construction</span></span></div>
+      <div class="proj" data-cat="renew"><span class="yr">2023</span><div><div class="ttl lang-mn">«Сонгино» дэд станцын Том чадлын батарейн хуримтлуурын эх үүсвэрийн зөвлөх үйлчилгээ</div><div class="ttl lang-en">Consulting and engineering services for large-scale Battery Energy Storage System (BESS) at Songino</div><div class="cli lang-mn">Азийн хөгжлийн банк</div><div class="cli lang-en">Asian Development Bank (ADB)</div></div><span class="badge"><span class="lang-mn">Сэргээгдэх</span><span class="lang-en">Renewables</span></span></div>
+      <div class="proj" data-cat="bld"><span class="yr">2023</span><div><div class="ttl lang-mn">Ханбогд сумын гудамж талбайн гэрэлтүүлэг, удирдлагын самбар, камержуулалт</div><div class="ttl lang-en">Automated street lighting, control system, and CCTV network in Khanbogd soum center</div><div class="cli lang-mn">Ханбогд сумын ЗДТГ</div><div class="cli lang-en">Khanbogd Soum Governor's Office</div></div><span class="badge"><span class="lang-mn">Автоматжуулалт</span><span class="lang-en">Automation</span></span></div>
+      <div class="proj" data-cat="bld"><span class="yr">2024</span><div><div class="ttl lang-mn">ДЦС-3, ДЦС-4 ус дамжуулах системийн өөрчлөлт, SCADA системийн барилга угсралт</div><div class="ttl lang-en">SCADA system integration and control installation for water transfer loops at CHPs 3 & 4</div><div class="cli lang-mn">«М-Си-Эс Интернэшнл» ХХК</div><div class="cli lang-en">MCS International LLC</div></div><span class="badge"><span class="lang-mn">Автоматжуулалт</span><span class="lang-en">Automation</span></span></div>
+      <div class="proj" data-cat="energy"><span class="yr">2025</span><div><div class="ttl lang-mn">«Бүс нутгийн найдвартай цахилгаан хангамж» Багц-14 — 110 кВ ЦДАШ, дэд станц</div><div class="ttl lang-en">Reliable Regional Power Supply Project Package-14 — 110 kV overhead line and substation erection</div><div class="cli lang-mn">«Эрчим хүчний яам»</div><div class="cli lang-en">Ministry of Energy</div></div><span class="badge"><span class="lang-mn">Эрчим хүч</span><span class="lang-en">Power</span></span></div>
+      <div class="proj" data-cat="renew"><span class="yr">2025</span><div><div class="ttl lang-mn">Архангай, Чулуут сумын эрүүл мэндийн төвд сэргээгдэх эрчим хүчний халаалтын систем</div><div class="ttl lang-en">Solar PV and heat pump heating integration at Chuluut soum health clinic, Arkhangai</div><div class="cli lang-mn">Азийн хөгжлийн банк</div><div class="cli lang-en">Asian Development Bank (ADB)</div></div><span class="badge"><span class="lang-mn">Сэргээгдэх</span><span class="lang-en">Renewables</span></span></div>
+      <div class="proj" data-cat="renew"><span class="yr">2025</span><div><div class="ttl lang-mn">Сүхбаатар, Наран сумын эмнэлэгт сэргээгдэх эрчим хүчний халаалтын систем</div><div class="ttl lang-en">Solar PV and heat pump heating integration at Naran soum local hospital, Sukhbaatar</div><div class="cli lang-mn">Азийн хөгжлийн банк</div><div class="cli lang-en">Asian Development Bank (ADB)</div></div><span class="badge"><span class="lang-mn">Сэргээгдэх</span><span class="lang-en">Renewables</span></span></div>
+      <div class="proj" data-cat="renew"><span class="yr">2025</span><div><div class="ttl lang-mn">Компанийн дотоод хэрэгцээг сэргээгдэх эрчим хүчээр хангах цогц систем</div><div class="ttl lang-en">Comprehensive solar rooftop grid system for the company's headquarters needs</div><div class="cli lang-mn">Дэлхийн банк</div><div class="cli lang-en">World Bank</div></div><span class="badge"><span class="lang-mn">Сэргээгдэх</span><span class="lang-en">Renewables</span></span></div>
+      <div class="proj" data-cat="renew"><span class="yr">2025</span><div><div class="ttl lang-mn">Орхон аймгийн хүүхдийн хөгжлийн төвд нарны систем, дулааны насос, ухаалаг хяналт</div><div class="ttl lang-en">Solar PV generation, geothermal heat pump, and smart control at Children's Center, Orkhon</div><div class="cli lang-mn">НҮБ — Хүүхдийн Сан (UNICEF)</div><div class="cli lang-en">UNICEF (United Nations Children's Fund)</div></div><span class="badge"><span class="lang-mn">Сэргээгдэх</span><span class="lang-en">Renewables</span></span></div>
+      <div class="proj" data-cat="bld"><span class="yr">2025</span><div><div class="ttl lang-mn">Насос станц №9-ийн даралт өргөх өргөтгөлийн дулаан, цахилгааны тоног төхөөрөмж</div><div class="ttl lang-en">Mechanical, thermal, and electrical works for booster expansion at Pump Station №9</div><div class="cli lang-mn">«Улаанбаатар дулааны сүлжээ» ТӨХК</div><div class="cli lang-en">Ulaanbaatar District Heating Network Co.</div></div><span class="badge"><span class="lang-mn">Барилга</span><span class="lang-en">Construction</span></span></div>
+      <div class="proj" data-cat="renew"><span class="yr">2025</span><div><div class="ttl lang-mn">30 кВт халаах чадалтай агаарын дулааны насосыг нисдэг тэрэгний ангарт суурилуулах</div><div class="ttl lang-en">Installation of a 30 kW air-source energy-saving heat pump for helicopter hangar</div><div class="cli lang-mn">«Геосан» ХХК</div><div class="cli lang-en">Geosan LLC</div></div><span class="badge"><span class="lang-mn">Сэргээгдэх</span><span class="lang-en">Renewables</span></span></div>
+      <div class="proj" data-cat="renew"><span class="yr">2025</span><div><div class="ttl lang-mn">1500 м² хүлэмжид 240 кВт халаах чадалтай 2 шатлалт агаарын дулааны насос</div><div class="ttl lang-en">2-stage air-source heat pump (240 kW heating capacity) for a 1,500 m² agricultural greenhouse</div><div class="cli lang-mn">«Таримал ургамал» ХХК</div><div class="cli lang-en">Tarimal Urgamal LLC</div></div><span class="badge"><span class="lang-mn">Сэргээгдэх</span><span class="lang-en">Renewables</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 07.2 MARKET -->
+<section id="market" class="dark">
+  <div class="wrap">
+    <span class="eyebrow-sec">
+      <span class="lang-mn">07.2 / 11 — ЗАХ ЗЭЭЛ ДЭХ БАЙР СУУРЬ</span>
+      <span class="lang-en">07.2 / 11 — MARKET POSITION</span>
+    </span>
+    <h2 class="sec-title">
+      <span class="lang-mn">Технологи ба чадавхыг<br>холбосон <span class="ac">гүүр</span></span>
+      <span class="lang-en">Bridging Technology and<br>Local Engineering <span class="ac">Capacity</span></span>
+    </h2>
+    <div class="mkt-grid">
+      <div>
+        <p class="lang-mn">«Повертүүл» ХХК нь Монголын эрчим хүч, дэд бүтцийн зах зээлд олон улсын дэвшилтэт технологи болон дотоодын инженерийн чадавхыг холбосон <b>гүүр</b> болж ажилладаг. Дэлхийн тэргүүлэгч үйлдвэрлэгчдийн шийдлийг орон нутгийн нөхцөлд тохируулан нэвтрүүлдэг.</p>
+        <p class="lang-en">POWERTOOL LLC serves as a <b>bridge</b> linking international advanced technologies with local engineering capacity in Mongolia's energy and infrastructure markets. We localize and implement solutions from leading global manufacturers.</p>
+      </div>
+      <div>
+        <p class="lang-mn">Зах зээлийн байр суурь нь албан ёсны түншлэлийн сүлжээ, өргөн хүрээний тусгай зөвшөөрөл, <b>EPC загварын цогц чадавх</b>-д тулгуурладаг. Энэ нь биднийг төслүүдийг бие даан, иж бүрнээр хэрэгжүүлэх чадвартай түнш болгон ялгаруулдаг.</p>
+        <p class="lang-en">Our market position is built upon an official partnership network, a broad range of special licenses, and <b>comprehensive EPC capabilities</b>. This establishes us as a trusted partner capable of managing turnkey projects independently.</p>
+      </div>
+    </div>
+    
+    <div class="stats">
+      <div class="stat">
+        <div class="num" data-count="19">0</div>
+        <div class="lbl lang-mn">Томоохон төсөл<br>(2020–2025)</div>
+        <div class="lbl lang-en">Major Projects<br>(2020–2025)</div>
+      </div>
+      <div class="stat t">
+        <div class="num" data-count="11">0</div>
+        <div class="lbl lang-mn">Тусгай зөвшөөрөл</div>
+        <div class="lbl lang-en">Special Permits</div>
+      </div>
+      <div class="stat">
+        <div class="num" data-count="21">0</div>
+        <div class="lbl lang-mn">Мэргэжлийн ажилтан</div>
+        <div class="lbl lang-en">Professional Staff</div>
+      </div>
+      <div class="stat t">
+        <div class="num" data-count="10">0</div>
+        <div class="lbl lang-mn">Жилийн туршлага</div>
+        <div class="lbl lang-en">Years of Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08 PARTNERS -->
+<section id="partners" class="alt">
+  <div class="wrap">
+    <span class="eyebrow-sec">
+      <span class="lang-mn">08 / 11 — СТРАТЕГИЙН ТҮНШЛЭЛ</span>
+      <span class="lang-en">08 / 11 — STRATEGIC PARTNERSHIP</span>
+    </span>
+    <h2 class="sec-title">
+      <span class="lang-mn">Дэлхийн брэндийн<br><span class="ac">албан ёсны түнш</span></span>
+      <span class="lang-en">Official Partner of<br>Global Brands</span>
+    </h2>
+    <p class="sec-intro">
+      <span class="lang-mn">Дэлхийн тэргүүлэгч технологийн компаниудтай албан ёсны түншлэлийн харилцаа тогтоосноор харилцагчдадаа батлагдсан чанар, баталгаат үйлчилгээ, дэвшилтэт шийдлийг шууд хүргэдэг.</span>
+      <span class="lang-en">By establishing official partnerships with global technology leaders, we deliver proven quality, guaranteed warranty service, and advanced technical solutions directly to our customers.</span>
+    </p>
+    
+    <div class="part-grid">
+      <div class="part">
+        <div class="logo">INHEMETER</div>
+        <div class="role lang-mn">Албан ёсны дистрибьютер</div>
+        <div class="role lang-en">Official Distributor</div>
+        <p class="lang-mn">AMI ухаалаг тоолуурын системийн дизайн, нийлүүлэлт, суурилуулалт; нэг ба гурван фазын тоолуурын борлуулалт, угсралт.</p>
+        <p class="lang-en">Design, engineering, procurement, and deployment of smart AMI systems; direct distribution and installation of single and three-phase digital smart meters.</p>
+      </div>
+      <div class="part">
+        <div class="logo">AIROSD</div>
+        <div class="role">Heat Pump / Energy Saving</div>
+        <p class="lang-mn">Дулааны насосын нийлүүлэлт, угсралт; эрчим хүчний хэмнэлтийн тооцоо, судалгаа; түлхүүр гардуулах төсөл.</p>
+        <p class="lang-en">Procurement and installation of premium air-source heat pump systems; thermodynamic engineering audits, efficiency calculations, and turnkey heating projects.</p>
+      </div>
+      <div class="part">
+        <div class="logo">Schneider Electric</div>
+        <div class="role lang-mn">Албан ёсны түнш</div>
+        <div class="role lang-en">Official Partner</div>
+        <p class="lang-mn">Дэлхийд танигдсан эрчим хүч, автоматжуулалтын тоног төхөөрөмжийн албан ёсны түнш, дистрибьютерийн эрхтэй.</p>
+        <p class="lang-en">Direct access to world-class power distribution products, switchgear lines, circuit protection devices, and industrial automation equipment as an authorized distributor.</p>
+      </div>
+    </div>
+
+    <div class="val-grid cust">
+      <div class="val">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <h4 class="lang-mn">Нэгдсэн хариуцлага</h4><h4 class="lang-en">Unified Responsibility</h4>
+        <p class="lang-mn">Төслийн бүх үе шатыг нэг түнштэй хэрэгжүүлснээр зохицуулалт, эрсдэл, өртөг буурдаг.</p><p class="lang-en">Executing all stages of development with a single partner reduces multi-contractor coordination overhead, technical risks, and overall project costs.</p>
+      </div>
+      <div class="val">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h4 class="lang-mn">Баталгаат байдал</h4><h4 class="lang-en">Guaranteed Quality</h4>
+        <p class="lang-mn">Олон улсын брэндийн борлуулалтын дараах баталгаат үйлчилгээ, эх сэлбэгийн найдвартай хангамж.</p><p class="lang-en">After-sales services fully backed by manufacturer warranties, ensuring long-term access to genuine spare parts and technician support.</p>
+      </div>
+      <div class="val">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h4 class="lang-mn">Урт хугацааны дэмжлэг</h4><h4 class="lang-en">Long-Term Support</h4>
+        <p class="lang-mn">Ашиглалтын хугацаанд техникийн дэмжлэг, засвар үйлчилгээ, системийн оновчлол.</p><p class="lang-en">Comprehensive technical assistance, routine maintenance checks, and software/system optimization over the facility's lifecycle.</p>
+      </div>
+      <div class="val">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <h4 class="lang-mn">Эдийн засгийн үр өгөөж</h4><h4 class="lang-en">Economic Optimization</h4>
+        <p class="lang-mn">Эрчим хүчний хэмнэлт, эргэн төлөгдөх хугацааны тооцоонд суурилсан хөрөнгө оруулалтын шийдэл.</p><p class="lang-en">Capital investment decisions structured around precise engineering calculations, guaranteed energy audits, and calculated payback periods.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 QUALITY -->
+<section id="quality" class="alt">
+  <div class="wrap">
+    <span class="eyebrow-sec">
+      <span class="lang-mn">09 / 11 — ЧАНАР БА НАЙДВАРТАЙ БАЙДАЛ</span>
+      <span class="lang-en">09 / 11 — QUALITY & HSE</span>
+    </span>
+    <h2 class="sec-title">
+      <span class="lang-mn">Чанар бол <span class="ac">хэмжүүр</span></span>
+      <span class="lang-en">Quality as Our <span class="ac">Core Metric</span></span>
+    </h2>
+    <p class="sec-intro">
+      <span class="lang-mn">Бид аюулгүй байдал, найдвартай ажиллагааг нэн тэргүүнд тавьж, төсөл бүрт нарийвчлал, төгс гүйцэтгэлийг шингээдэг.</span>
+      <span class="lang-en">We prioritize occupational safety and operational reliability, embedding technical precision and high standards into every deployment.</span>
+    </p>
+    
+    <div class="q-grid">
+      <div class="q">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h4 class="lang-mn">Стандартад нийцсэн гүйцэтгэл</h4><h4 class="lang-en">Full Code Compliance</h4>
+        <p class="lang-mn">Олон улсын стандарт, Монгол Улсын хууль тогтоомж, норм дүрэмд нийцүүлэн гүйцэтгэдэг.</p><p class="lang-en">Every construction design and grid connection is completed in strict adherence to international standards and Mongolian national building codes.</p>
+      </div>
+      <div class="q">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h4 class="lang-mn">Туршилт тохируулгын чадавх</h4><h4 class="lang-en">Testing & Calibration</h4>
+        <p class="lang-mn">Угсралтын дараах туршилт тохируулга, ашиглалтад хүлээлгэн өгөх үйл явцыг мэргэжлийн түвшинд гүйцэтгэдэг.</p><p class="lang-en">We execute professional post-installation calibration, grid integration parameters testing, and official commissioning hanovers.</p>
+      </div>
+      <div class="q">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h4 class="lang-mn">Аюулгүй ажиллагаа</h4><h4 class="lang-en">HSE Standards First</h4>
+        <p class="lang-mn">Хөдөлмөрийн аюулгүй байдал, эрүүл ахуйн шаардлагыг ажлын талбай бүрт чанд мөрддөг.</p><p class="lang-en">Strict occupational health and site safety (HSE) measures are actively enforced across all technical teams and construction zones.</p>
+      </div>
+      <div class="q">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg></div>
+        <h4 class="lang-mn">Бүрэн хариуцлага</h4><h4 class="lang-en">Total Accountability</h4>
+        <p class="lang-mn">Хийсэн ажлынхаа үр дүнд бүрэн хариуцлага хүлээж, харилцагчийн итгэлийг урт хугацаанд хадгалдаг.</p><p class="lang-en">We back all our materials and craftsmanship, maintaining comprehensive warranty support to guarantee customer peace of mind.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 FUTURE -->
+<section id="future" class="dark">
+  <div class="wrap">
+    <span class="eyebrow-sec">
+      <span class="lang-mn">10 / 11 — ИРЭЭДҮЙН ХӨГЖИЛ</span>
+      <span class="lang-en">10 / 11 — FUTURE ROADMAP</span>
+    </span>
+    <h2 class="sec-title">
+      <span class="lang-mn">Стратегийн <span class="ac">чиглэл</span></span>
+      <span class="lang-en">Strategic <span class="ac">Directions</span></span>
+    </h2>
+    <p class="sec-intro">
+      <span class="lang-mn">Монголын эрчим хүчний шилжилт, тогтвортой хөгжлийн чиг хандлагад нийцүүлэн дараах чиглэлээр чадавхаа тэлэхээр зорьж байна.</span>
+      <span class="lang-en">In alignment with Mongolia's green transition policies and sustainable development goals, we are actively expanding our scope in:</span>
+    </p>
+    
+    <div class="fut-list">
+      <div class="fut">
+        <span class="n">01</span>
+        <div class="c">
+          <h4 class="lang-mn">Сэргээгдэх эрчим хүч</h4>
+          <h4 class="lang-en">Renewable Energy</h4>
+          <p class="lang-mn">Нар, салхины эрчим хүчний төслүүдийн хүрээ, гүйцэтгэх чадавхыг өргөжүүлэх.</p>
+          <p class="lang-en">Expanding the scope and execution capabilities of solar and wind energy projects.</p>
+        </div>
+      </div>
+      <div class="fut">
+        <span class="n">02</span>
+        <div class="c">
+          <h4 class="lang-mn">Ухаалаг сүлжээ ба тоологдох систем</h4>
+          <h4 class="lang-en">Smart Grid & Metering</h4>
+          <p class="lang-mn">AMI/HES ухаалаг тоолуур, эрчим хүчний удирдлагын дижитал системийг өргөнөөр нэвтрүүлэх.</p>
+          <p class="lang-en">Widespread deployment of AMI/HES smart meters and digital energy management systems.</p>
+        </div>
+      </div>
+      <div class="fut">
+        <span class="n">03</span>
+        <div class="c">
+          <h4 class="lang-mn">Эрчим хүчний хэмнэлт</h4>
+          <h4 class="lang-en">Energy Efficiency</h4>
+          <p class="lang-mn">Дулааны насос болон эрчим хүч хэмнэх технологийг орон сууц, аж үйлдвэрийн салбарт түгээх.</p>
+          <p class="lang-en">Promoting heat pumps and energy-saving technologies in residential and industrial sectors.</p>
+        </div>
+      </div>
+      <div class="fut">
+        <span class="n">04</span>
+        <div class="c">
+          <h4 class="lang-mn">Дижитал шилжилт</h4>
+          <h4 class="lang-en">Digital Transformation</h4>
+          <p class="lang-mn">Эрчим хүчний салбарт зориулсан программ хангамж, IT шийдлийн чадавхыг бэхжүүлэх.</p>
+          <p class="lang-en">Strengthening capabilities in software development and custom IT solutions for the energy sector.</p>
+        </div>
+      </div>
+      <div class="fut">
+        <span class="n">05</span>
+        <div class="c">
+          <h4 class="lang-mn">Тогтвортой өсөлт</h4>
+          <h4 class="lang-en">Sustainable Growth</h4>
+          <p class="lang-mn">Олон улсын түншлэлээ өргөжүүлж, бүс нутгийн зах зээлд өрсөлдөх чадвараа дээшлүүлэх.</p>
+          <p class="lang-en">Expanding international partnerships and enhancing competitiveness in regional markets.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 CONCLUSION -->
+<section class="dark concl">
+  <div class="wrap concl-inner">
+    <span class="eyebrow-sec" style="justify-content:center">
+      <span class="lang-mn">11 / 11 — ДҮГНЭЛТ</span>
+      <span class="lang-en">11 / 11 — CONCLUSION</span>
+    </span>
+    <h2>
+      <span class="lang-mn">Хамтдаа <span>ирээдүйг</span> бүтээе</span>
+      <span class="lang-en">Building the <span>Future</span> Together</span>
+    </h2>
+    <p>
+      <span class="lang-mn">«Повертүүл» ХХК нь инженерийн дэвшилтэт шийдэл, олон улсын түншлэл, найдвартай гүйцэтгэлийг хослуулан, Монголын эрчим хүч, дэд бүтцийн салбарт урт хугацааны үнэ цэн бүтээж байна. Бид төсөл бүрийг чанар, аюулгүй байдал, хариуцлагын баталгаа болгон хэрэгжүүлдэг.</span>
+      <span class="lang-en">Powertool LLC integrates advanced technology, strategic global supply chains, and engineering precision to deliver long-term value in Mongolia's infrastructure. We execute every single project as a promise of quality, safety, and operational excellence.</span>
+    </p>
+    <a href="#contact" class="btn btn-primary">
+      <span class="lang-mn">Бидэнтэй холбогдох</span>
+      <span class="lang-en">Contact Us</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <p class="tagline-final">
+      <span class="lang-mn">// Инженерийн дэвшилтэт шийдлийг бид хэрэгжүүлдэг.</span>
+      <span class="lang-en">// Advanced engineering solutions in action.</span>
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="contact-section">
+  <div class="wrap">
+    <span class="eyebrow-sec">
+      <span class="lang-mn">ХОЛБОО БАРИХ</span>
+      <span class="lang-en">CONTACT US</span>
+    </span>
+    <h2 class="sec-title">
+      <span class="lang-mn">Төслийн санал <span class="ac">илгээх</span></span>
+      <span class="lang-en">Submit a Project <span class="ac">Inquiry</span></span>
+    </h2>
+    
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3 class="lang-mn">Инженерийн дэвшилтэт шийдлийн хамтрагч</h3>
+        <h3 class="lang-en">Your Advanced Engineering Partner</h3>
+        <p class="lang-mn">Бидэнтэй холбогдон төслийн техник-эдийн засгийн үндэслэл, хамтран ажиллах саналаа ирүүлнэ үү. Манай мэргэжлийн инженерийн баг шуурхай хариу өгөх болно.</p>
+        <p class="lang-en">Get in touch to submit feasibility studies, project briefs, or partnership proposals. Our specialized engineering staff will evaluate your request and respond promptly.</p>
+        
+        <div class="contact-methods">
+          <div class="contact-item">
+            <div class="icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div class="details">
+              <h5 class="lang-mn">Утас</h5>
+              <h5 class="lang-en">Phone</h5>
+              <p><a href="tel:77004433">7700-4433</a></p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="details">
+              <h5 class="lang-mn">Цахим хаяг</h5>
+              <h5 class="lang-en">Email</h5>
+              <p><a href="mailto:info@powertool.mn">info@powertool.mn</a></p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="details">
+              <h5 class="lang-mn">Вэбсайт</h5>
+              <h5 class="lang-en">Website</h5>
+              <p><a href="https://www.powertool.mn" target="_blank" rel="noopener">www.powertool.mn</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-form-box">
+        <form id="projectForm" onsubmit="handleFormSubmit(event)">
+          <div class="form-group">
+            <label for="frmName" class="lang-mn">Таны нэр / Байгууллагын нэр</label>
+            <label for="frmName" class="lang-en">Your Name / Organization Name</label>
+            <input type="text" id="frmName" required placeholder="Жишээ: Ачит Инженеринг ХХК" class="lang-placeholder">
+          </div>
+          <div class="form-group">
+            <label for="frmContact" class="lang-mn">Холбоо барих утас / Эмэйл хаяг</label>
+            <label for="frmContact" class="lang-en">Contact Phone / Email Address</label>
+            <input type="text" id="frmContact" required placeholder="Жишээ: 9911xxxx / info@company.mn" class="lang-placeholder">
+          </div>
+          <div class="form-group">
+            <label for="frmService" class="lang-mn">Хэрэгцээт инженерийн чиглэл</label>
+            <label for="frmService" class="lang-en">Desired Engineering Sector</label>
+            <input type="text" id="frmService" placeholder="Жишээ: Сэргээгдэх эрчим хүч, Дулааны насос" class="lang-placeholder">
+          </div>
+          <div class="form-group">
+            <label for="frmMsg" class="lang-mn">Санал хүсэлтийн товч агуулга</label>
+            <label for="frmMsg" class="lang-en">Brief Outline of Project Proposal</label>
+            <textarea id="frmMsg" rows="4" required placeholder="Төслийн товч мэдээлэл, саналаа энд бичнэ үү..." class="lang-placeholder"></textarea>
+          </div>
+          
+          <button type="submit" class="form-submit-btn">
+            <span class="lang-mn">Илгээх</span>
+            <span class="lang-en">Submit Inquiry</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+          </button>
+          
+          <div class="form-status" id="formStatus">
+            <span class="lang-mn">Санал хүсэлтийг амжилттай хүлээн авлаа. Баярлалаа!</span>
+            <span class="lang-en">Your inquiry has been processed successfully. Thank you!</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="row">
+          <img src="logo/Logo%20new%20powertool%20%233.png" alt="POWERTOOL Logo" class="logo-img">
+        </div>
+        <p class="lang-mn">Эрчим хүч, барилга угсралт, автоматжуулалтын салбарт EPC цогц шийдэл хүргэгч үндэсний компани.</p>
+        <p class="lang-en">A leading national contractor delivering comprehensive EPC utility grid solutions, high-complexity building MEP, and SCADA automation.</p>
+      </div>
+      <div class="foot-col">
+        <h5 class="lang-mn">Холбоо барих</h5>
+        <h5 class="lang-en">Contact</h5>
+        <div class="item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div><a href="tel:77004433">7700-4433</a></div>
+        </div>
+        <div class="item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:info@powertool.mn">info@powertool.mn</a>
+        </div>
+        <div class="item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <a href="https://www.powertool.mn" target="_blank" rel="noopener">www.powertool.mn</a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5 class="lang-mn">Хаяг</h5>
+        <h5 class="lang-en">Address</h5>
+        <div class="item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div class="lang-mn">Монгол Улс, Улаанбаатар хот, Баянзүрх дүүрэг, 10 хороо, Хангамж гудамж, 16 тоот (Zip 13260)</div>
+          <div class="lang-en">Building 16, Khangamj Street, 10th Khoroo, Bayanzurkh District, Ulaanbaatar, Mongolia (Zip 13260)</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 
+        <span class="lang-mn">ПОВЕРТҮҮЛ ХХК</span>
+        <span class="lang-en">POWERTOOL LLC</span>
+      </span>
+      <span class="lang-mn">ЭРЧИМ ХҮЧ · БАРИЛГА · АВТОМАТЖУУЛАЛТ</span>
+      <span class="lang-en">POWER · CONSTRUCTION · AUTOMATION</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll Progress and Sticky Nav logo transition
+const nav = document.getElementById('nav');
+const navLogo = document.getElementById('navLogo');
+const scrollProgress = document.getElementById('scrollProgress');
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = (scrollY / docHeight) * 100;
+  
+  // Progress bar width
+  scrollProgress.style.width = `${progress}%`;
+  
+  // Navbar scroll class & logo swap
+  if (scrollY > 50) {
+    nav.classList.add('scrolled');
+    navLogo.src = 'logo/Logo%20new%20powertool%20%231.png';
+  } else {
+    nav.classList.remove('scrolled');
+    navLogo.src = 'logo/Logo%20new%20powertool%20%233.png';
+  }
+});
+
+// Mobile menu toggle
+const burger = document.getElementById('burger');
+const navlinks = document.getElementById('navlinks');
+
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  navlinks.classList.toggle('open');
+});
+
+// Close mobile menu on click nav link
+document.querySelectorAll('.navlinks a').forEach(link => {
+  link.addEventListener('click', () => {
+    burger.classList.remove('open');
+    navlinks.classList.remove('open');
+  });
+});
+
+// Stats counter animation with Intersection Observer
+const countIo = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const targetVal = parseInt(el.dataset.count, 10);
+      let currentVal = 0;
+      const duration = 1500;
+      const steps = 50;
+      const stepVal = targetVal / steps;
+      const intervalTime = duration / steps;
+      
+      const timer = setInterval(() => {
+        currentVal += stepVal;
+        if (currentVal >= targetVal) {
+          el.textContent = targetVal;
+          clearInterval(timer);
+        } else {
+          el.textContent = Math.floor(currentVal);
+        }
+      }, intervalTime);
+      
+      observer.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('[data-count]').forEach(el => countIo.observe(el));
+
+// Project filter logic
+document.querySelectorAll('.proj-filter button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.proj-filter button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    const filter = btn.dataset.f;
+    document.querySelectorAll('.proj').forEach(proj => {
+      if (filter === 'all' || proj.dataset.cat === filter) {
+        proj.classList.remove('hide');
+      } else {
+        proj.classList.add('hide');
+      }
+    });
+  });
+});
+
+// Licenses Tabs logic
+function switchTab(evt, tabId) {
+  // Hide all panes
+  document.querySelectorAll('.lic-pane').forEach(pane => {
+    pane.classList.remove('active');
+  });
+  
+  // Deactivate all tab buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  // Show active pane and button
+  document.getElementById(tabId).classList.add('active');
+  evt.currentTarget.classList.add('active');
+}
+
+// Language Switcher Logic
+function setLanguage(lang) {
+  document.documentElement.lang = lang;
+  localStorage.setItem('powertool_lang', lang);
+  
+  // Update title and description dynamically
+  if (lang === 'mn') {
+    document.title = "POWERTOOL — Инженерийн дэвшилтэт шийдэл | EPC";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', '«Повертүүл» ХХК — Монголын эрчим хүч, барилга угсралт, автоматжуулалтын салбарт инженерчлэл, худалдан авалт, барилга угсралтын (EPC) цогц шийдэл хүргэгч үндэсний компани.');
+  } else {
+    document.title = "POWERTOOL — Advanced Engineering Solutions | EPC";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) metaDesc.setAttribute('content', 'POWERTOOL LLC — Integrated Engineering, Procurement, and Construction (EPC) solutions provider in Mongolia\'s energy, building, and automation sectors.');
+  }
+  
+  // Update placeholders
+  updateFormPlaceholders(lang);
+  
+  // Update button states
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  const btnMn = document.getElementById('btn-mn');
+  const btnEn = document.getElementById('btn-en');
+  if (btnMn && btnEn) {
+    if (lang === 'mn') {
+      btnMn.classList.add('active');
+    } else {
+      btnEn.classList.add('active');
+    }
+  }
+}
+
+// Set placeholder based on language
+function updateFormPlaceholders(lang) {
+  const inputs = {
+    'frmName': { mn: 'Жишээ: Ачит Инженеринг ХХК', en: 'e.g., Achit Engineering LLC' },
+    'frmContact': { mn: 'Жишээ: 9911xxxx / info@company.mn', en: 'e.g., 9911xxxx / info@company.mn' },
+    'frmService': { mn: 'Жишээ: Сэргээгдэх эрчим хүч, Дулааны насос', en: 'e.g., Renewable Energy, Heat Pump' },
+    'frmMsg': { mn: 'Төслийн товч мэдээлэл, саналаа энд бичнэ үү...', en: 'Describe your project requirements or proposal details here...' }
+  };
+  
+  for (const id in inputs) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.placeholder = inputs[id][lang];
+    }
+  }
+}
+
+// Contact form handler
+function handleFormSubmit(event) {
+  event.preventDefault();
+  const name = document.getElementById('frmName').value;
+  const contact = document.getElementById('frmContact').value;
+  const service = document.getElementById('frmService').value;
+  const msg = document.getElementById('frmMsg').value;
+  
+  const submitBtn = event.target.querySelector('.form-submit-btn');
+  const status = document.getElementById('formStatus');
+  
+  const isEn = document.documentElement.lang === 'en';
+  submitBtn.disabled = true;
+  submitBtn.querySelector('span').textContent = isEn ? 'Submitting...' : 'Илгээж байна...';
+  
+  // Format body and subject for email client
+  const subject = encodeURIComponent(isEn ? `Project Proposal: ${name}` : `Төслийн санал: ${name}`);
+  const body = encodeURIComponent(
+    isEn ? 
+    (`Dear POWERTOOL Team,\n\n` +
+     `Project inquiry details from powertool.mn website form:\n\n` +
+     `Sender / Organization: ${name}\n` +
+     `Contact info: ${contact}\n` +
+     `Engineering field of interest: ${service}\n\n` +
+     `Project description:\n${msg}`) :
+    (`Хүндэт POWERTOOL хамт олонд,\n\n` +
+     `Төслийн санал хүсэлт илгээж байна.\n\n` +
+     `Илгээгч/Байгууллагын нэр: ${name}\n` +
+     `Холбоо барих мэдээлэл: ${contact}\n` +
+     `Инженерийн чиглэл: ${service}\n\n` +
+     `Санал хүсэлт:\n${msg}\n\n` +
+     `Санамж: Энэхүү хүсэлтийг powertool.mn вэбсайтын маягтаар бэлтгэв.`)
+  );
+  
+  // Send email via mailto redirect
+  setTimeout(() => {
+    window.location.href = `mailto:info@powertool.mn?subject=${subject}&body=${body}`;
+    
+    status.classList.add('success');
+    status.style.display = 'block';
+    submitBtn.querySelector('span').textContent = isEn ? 'Submitted' : 'Илгээгдсэн';
+    
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.querySelector('span').textContent = isEn ? 'Submit' : 'Илгээх';
+      status.style.display = 'none';
+      event.target.reset();
+    }, 4000);
+  }, 800);
+}
+
+// ----------------------------------------------------
+// DYNAMIC ENGINEERING FEATURES JAVASCRIPT
+// ----------------------------------------------------
+
+// 1. SCADA Switch/Breaker Logic
+const scadaState = {
+  cb1: true,
+  cb2: true
+};
+
+function toggleBreaker(breakerId) {
+  const breakerEl = document.getElementById(breakerId);
+  if (!breakerEl) return;
+  
+  // Toggle state
+  scadaState[breakerId] = !scadaState[breakerId];
+  
+  if (scadaState[breakerId]) {
+    breakerEl.classList.add('on');
+  } else {
+    breakerEl.classList.remove('on');
+  }
+  
+  // Recalculate grid flow paths
+  updateSCADAPaths();
+}
+
+function updateSCADAPaths() {
+  const isEn = document.documentElement.lang === 'en';
+  
+  const line1 = document.getElementById('line1');
+  const line2 = document.getElementById('line2');
+  const line3 = document.getElementById('line3');
+  const line4 = document.getElementById('line4');
+  
+  const flow1 = document.getElementById('flow1');
+  const flow2 = document.getElementById('flow2');
+  const flow3 = document.getElementById('flow3');
+  const flow4 = document.getElementById('flow4');
+  
+  const nodeSubA = document.getElementById('nodeSubA');
+  const nodeSubB = document.getElementById('nodeSubB');
+  
+  const telVolt = document.getElementById('telVolt');
+  const telStatus = document.getElementById('telStatus');
+  const telPF = document.getElementById('telPF');
+  
+  // Logic rules
+  // L1 is always active if Gen is active
+  const l1_active = true;
+  
+  // L2 is active if L1 is active AND CB1 is ON
+  const l2_active = l1_active && scadaState.cb1;
+  
+  // L3 is active if L2 is active AND CB2 is ON
+  const l3_active = l2_active && scadaState.cb2;
+  
+  // L4 is active if L2 is active (no breaker on L4 in diagram, goes straight to Sub-B)
+  const l4_active = l2_active;
+  
+  // Apply classes for Line 1
+  toggleSCADAElement(line1, flow1, l1_active);
+  
+  // Apply classes for Line 2
+  toggleSCADAElement(line2, flow2, l2_active);
+  
+  // Apply classes for Line 3
+  toggleSCADAElement(line3, flow3, l3_active);
+  if (l3_active) {
+    nodeSubA.style.fill = 'var(--teal-500)';
+    nodeSubA.classList.add('active');
+  } else {
+    nodeSubA.style.fill = '#3a4b5c';
+    nodeSubA.classList.remove('active');
+  }
+  
+  // Apply classes for Line 4
+  toggleSCADAElement(line4, flow4, l4_active);
+  if (l4_active) {
+    nodeSubB.style.fill = 'var(--teal-500)';
+    nodeSubB.classList.add('active');
+  } else {
+    nodeSubB.style.fill = '#3a4b5c';
+    nodeSubB.classList.remove('active');
+  }
+  
+  // Update Live Telemetry Cards
+  if (l3_active) {
+    telVolt.innerHTML = `220.1<span class="unit">kV</span>`;
+  } else {
+    telVolt.innerHTML = `0.00<span class="unit">kV</span>`;
+  }
+  
+  // Update system status text based on active lines
+  if (l3_active && l4_active) {
+    telStatus.textContent = isEn ? "NOMINAL" : "ХЭВИЙН";
+    telStatus.style.color = "#4cd964";
+    telPF.textContent = "0.985";
+  } else if (!l3_active && !l4_active) {
+    telStatus.textContent = isEn ? "BLACKOUT" : "ТАСАРХАЙ";
+    telStatus.style.color = "#ff3b30";
+    telPF.textContent = "0.000";
+  } else {
+    telStatus.textContent = isEn ? "DEGRADED" : "ЗАСВАРТАЙ";
+    telStatus.style.color = "#ffcc00";
+    telPF.textContent = "0.920";
+  }
+}
+
+function toggleSCADAElement(lineEl, flowEl, isActive) {
+  if (isActive) {
+    lineEl.classList.add('active');
+    flowEl.classList.add('active');
+  } else {
+    lineEl.classList.remove('active');
+    flowEl.classList.remove('active');
+  }
+}
+
+// 2. Real-Time Oscilloscope Sine Wave Simulation
+const canvas = document.getElementById('oscCanvas');
+if (canvas) {
+  const ctx = canvas.getContext('2d');
+  
+  let animationFrameId;
+  let offset = 0;
+  
+  // Set resolution
+  function resizeCanvas() {
+    canvas.width = canvas.clientWidth * window.devicePixelRatio;
+    canvas.height = canvas.clientHeight * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+  
+  function drawOscilloscope() {
+    const width = canvas.width / window.devicePixelRatio;
+    const height = canvas.height / window.devicePixelRatio;
+    
+    // Clear screen
+    ctx.fillStyle = '#01080e';
+    ctx.fillRect(0, 0, width, height);
+    
+    // Draw Grid Lines (Engineering grid)
+    ctx.strokeStyle = 'rgba(0, 229, 229, 0.05)';
+    ctx.lineWidth = 0.8;
+    
+    // Horizontal grid
+    for (let y = 15; y < height; y += 15) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+      ctx.stroke();
+    }
+    // Vertical grid
+    for (let x = 20; x < width; x += 20) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
+      ctx.stroke();
+    }
+    
+    // Draw Center Horizontal Datum
+    ctx.strokeStyle = 'rgba(0, 229, 229, 0.15)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, height / 2);
+    ctx.lineTo(width, height / 2);
+    ctx.stroke();
+    
+    // Draw Phase Sine Wave
+    // Wave parameters are affected by SCADA breakers
+    let amplitude = 30; // nominal amplitude
+    let frequencyFactor = 0.02; // nominal 50Hz
+    
+    if (!scadaState.cb1) {
+      amplitude = 2; // Flatline if power cut
+    } else if (!scadaState.cb2) {
+      amplitude = 22; // Slightly altered amplitude
+      frequencyFactor = 0.025; // Phase shifts
+    }
+    
+    ctx.strokeStyle = 'var(--teal-400)';
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = 'var(--teal-400)';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    
+    for (let x = 0; x < width; x++) {
+      const y = (height / 2) + Math.sin(x * frequencyFactor + offset) * amplitude;
+      if (x === 0) {
+        ctx.moveTo(x, y);
+      } else {
+        ctx.lineTo(x, y);
+      }
+    }
+    
+    ctx.stroke();
+    ctx.shadowBlur = 0; // reset
+    
+    // Update live text metrics with slight noise
+    updateLiveMetrics();
+    
+    // Increment offset for animation
+    offset += 0.06;
+    animationFrameId = requestAnimationFrame(drawOscilloscope);
+  }
+  
+  // Start animation loop
+  drawOscilloscope();
+  
+  // Noise generator for active telemetry
+  const telFreq = document.getElementById('telFreq');
+  function updateLiveMetrics() {
+    if (!scadaState.cb1) {
+      telFreq.innerHTML = `0.00<span class="unit">Hz</span>`;
+      return;
+    }
+    
+    // Slight nominal frequency wiggle
+    const freq = (50.00 + (Math.sin(offset * 0.1) * 0.03) + (Math.random() * 0.006 - 0.003)).toFixed(2);
+    telFreq.innerHTML = `${freq}<span class="unit">Hz</span>`;
+  }
+}
+
+// On load check preference
+const savedLang = localStorage.getItem('powertool_lang') || 'mn';
+setLanguage(savedLang);
+</script>
+</body>
+</html>
