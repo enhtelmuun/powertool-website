@@ -195,7 +195,7 @@ window.PT_CATALOG = {
       type:    { mn: 'R290 гэр ахуйн моноблок', en: 'R290 Residential Monobloc' },
       tagline: { mn: 'Байгальд ээлтэй R290 хөргөгчтэй DC инвертер', en: 'Eco-friendly R290 refrigerant DC inverter' },
       badges: ['R290', 'A+++', 'DC Inverter', 'SCOP 4.66', '–25°C'],
-      models: [ { code: 'QBKFXFC-024SBII', label: '24 kW' }, { code: 'QBKFXFC-030SBII', label: '30 kW' } ],
+      models: [ { code: 'QBKFXFC-024SBII', label: '24 kW', pdf: 'datasheets/QBKFXFC-024SBII.pdf' }, { code: 'QBKFXFC-030SBII', label: '30 kW', pdf: 'datasheets/QBKFXFC-030SBII.pdf' } ],
       summary: {
         mn: 'Байгальд ээлтэй R290 (пропан) хөргөгч ашигласан гэр ахуйн моноблок дулааны насос. Бүрэн DC инвертер технологи, A+++ зэрэглэлийн өндөр хэмнэлттэй.',
         en: 'Residential monobloc heat pump using eco-friendly R290 (propane) refrigerant. Full DC inverter technology with A+++ class high efficiency.'
@@ -233,7 +233,7 @@ window.PT_CATALOG = {
       type:    { mn: 'R32 моноблок дулааны насос', en: 'R32 Monobloc Heat Pump' },
       tagline: { mn: 'Бүх-нэг-дотор, суурилуулахад хялбар', en: 'All-in-one design, easy to install' },
       badges: ['R32', 'A+++', 'DC Inverter', 'SCOP 4.6', '16–30 kW'],
-      models: [ { code: 'QBKFXFC-016SRI', label: '16 kW' }, { code: 'QBKFXFC-024SRII', label: '24 kW' }, { code: 'QBKFXFC-030SRII', label: '30 kW' } ],
+      models: [ { code: 'QBKFXFC-016SRI', label: '16 kW', pdf: 'datasheets/QBKFXFC-016SRI.pdf' }, { code: 'QBKFXFC-024SRII', label: '24 kW', pdf: 'datasheets/QBKFXFC-024SRII.pdf' }, { code: 'QBKFXFC-030SRII', label: '30 kW', pdf: 'datasheets/QBKFXFC-030SRII.pdf' } ],
       summary: {
         mn: 'R32 хөргөгчтэй моноблок дулааны насос — бүх эд анги нэг блокт багтсан тул суурилуулахад хялбар, найдвартай. Гэр ахуй болон жижиг худалдааны байр.',
         en: 'R32 monobloc heat pump — all components in one block for simple, reliable installation. For homes and small commercial buildings.'
@@ -264,11 +264,11 @@ window.PT_CATALOG = {
 
     {
       id: 'hp-split', category: 'heatpump', brand: 'AIROSD', name: 'R32 Split',
-      img: 'img/hp-split.png',
+      img: 'img/hp-split.jpg',
       type:    { mn: 'R32 сплит дулааны насос', en: 'R32 Split Heat Pump' },
       tagline: { mn: 'Гадна + дотор блоктой, уян хатан суурилуулалт', en: 'Outdoor + indoor unit, flexible installation' },
       badges: ['R32', 'A+++', 'DC Inverter', 'Split', '24–30 kW'],
-      models: [ { code: 'QBKFXFC-024SRII/WG', label: '24 kW' }, { code: 'QBKFXFC-030SRII/WG', label: '30 kW' } ],
+      models: [ { code: 'QBKFXFC-024SRII/WG', label: '24 kW', pdf: 'datasheets/QBKFXFC-024SRII-WG.pdf' }, { code: 'QBKFXFC-030SRII/WG', label: '30 kW', pdf: 'datasheets/QBKFXFC-030SRII-WG.pdf' } ],
       summary: {
         mn: 'Гадна болон дотор блок тусдаа байрлах сплит хувилбар. Дотор блок нь усны систем рүү шууд холбогдох тул суурилуулалт уян хатан, чимээ багатай.',
         en: 'Split version with separate outdoor and indoor units. The indoor hydro unit connects directly to the water system for flexible, quiet installation.'
@@ -304,8 +304,8 @@ window.PT_CATALOG = {
       tagline: { mn: '45–200 kW том оврын шийдэл, –35°C ажиллагаа', en: 'Large 45–200 kW solution, operates to –35°C' },
       badges: ['R32', 'A+++', '45–200 kW', '–35°C', 'EVI'],
       models: [
-        { code: '045URII', label: '45 kW' }, { code: '070URII', label: '70 kW' },
-        { code: '100URII', label: '100 kW' }, { code: '150URII', label: '150 kW' }, { code: '200URII', label: '200 kW' }
+        { code: '045URII', label: '45 kW', pdf: 'datasheets/QBKFXFC-045URII.pdf' }, { code: '070URII', label: '70 kW', pdf: 'datasheets/QBKFXFC-070URII.pdf' },
+        { code: '100URII', label: '100 kW', pdf: 'datasheets/QBKFXFC-100URII.pdf' }, { code: '150URII', label: '150 kW', pdf: 'datasheets/QBKFXFC-150URII.pdf' }, { code: '200URII', label: '200 kW', pdf: 'datasheets/QBKFXFC-200URII.pdf' }
       ],
       summary: {
         mn: 'Худалдаа, үйлдвэр, томоохон барилгад зориулсан 45–200 kW чадлын дулааны насос. EVI технологиор –35°C хүйтэнд найдвартай ажиллана. Модуль болгон холбож чадлыг өргөтгөх боломжтой.',
@@ -341,7 +341,7 @@ window.PT_CATALOG = {
       type:    { mn: 'Хоёр шатлалт өндөр температурын дулааны насос', en: 'Two-Stage High-Temperature Heat Pump' },
       tagline: { mn: 'Гаралтын ус 85°C хүртэл, –35°C ажиллагаа', en: 'Water outlet up to 85°C, operates to –35°C' },
       badges: ['R410A+R134A', '85°C', '–35°C', 'Scroll ×4', '52–110 kW'],
-      models: [ { code: 'KFXF-060UMAII/FD', label: '66 kW' }, { code: 'KFXF-110UMAII/FD', label: '110 kW' } ],
+      models: [ { code: 'KFXF-060UMAII/FD', label: '66 kW', pdf: 'datasheets/KFXF-060UMAII-FD.pdf' }, { code: 'KFXF-110UMAII/FD', label: '110 kW', pdf: 'datasheets/KFXF-110UMAII-FD.pdf' } ],
       summary: {
         mn: 'Хоёр шатлалт компрессорын систем (R410A + R134A) ашиглан гаралтын усыг 85°C хүртэл халаах өндөр температурын дулааны насос. Төвлөрсөн дулаан хангамж, аж үйлдвэрийн процесст тохиромжтой.',
         en: 'Two-stage compressor system (R410A + R134A) heating water up to 85°C. Suited for district heating and industrial process heat.'
@@ -374,6 +374,7 @@ window.PT_CATALOG = {
       type:    { mn: 'Бүх-нэг-дотор DC инвертер усны халаагуур', en: 'All-in-One DC Inverter Water Heater' },
       tagline: { mn: 'Compressor + сав нэгдсэн, эрчим хүч хэмнэсэн', en: 'Integrated compressor + tank, energy saving' },
       badges: ['R32/R410A', 'DC Inverter', 'All-in-One', 'DHW'],
+      models: [ { code: 'KRS80-150V', label: '150 L', pdf: 'datasheets/KRS80-150V.pdf' }, { code: 'KRS80-200V', label: '200 L', pdf: 'datasheets/KRS80-200V.pdf' }, { code: 'KRS160-400V', label: '400 L', pdf: 'datasheets/KRS160-400V.pdf' } ],
       summary: {
         mn: 'Компрессор, дулаан солилцуур, ус хадгалах савыг нэг бүтээгдэхүүнд нэгтгэсэн ахуйн халуун усны (DHW) шийдэл. DC инвертер технологиор эрчим хүч хэмнэж, суурилуулалтыг хялбарчилна.',
         en: 'Domestic hot water (DHW) solution integrating compressor, heat exchanger and storage tank in one product. DC inverter technology saves energy and simplifies installation.'

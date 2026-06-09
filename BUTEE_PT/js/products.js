@@ -1,12 +1,13 @@
 /* =============================================================
    POWERTOOL — Бүтээгдэхүүний каталог render логик / Catalog renderer
    Depends on: js/products-data.js  (window.PT_CATALOG)
-   Renders the hub (#catalog) and the detail page (#detail),
-   and provides the shared language switch + burger menu.
+   Hub (#catalog): product cards grouped by category.
+   Detail (#detail): per-model selector + spec sheet + datasheet download.
    ============================================================= */
 (function () {
   'use strict';
   var C = window.PT_CATALOG || { categories: [], products: [] };
+  var SEL = 0; /* selected model index on the detail page */
 
   /* bilingual -> two spans toggled by CSS; plain string -> as is */
   function bi(o) {
@@ -62,26 +63,21 @@
     el.innerHTML = html;
   }
 
-  /* ---------------- DETAIL ---------------- */
-  function specTable(g, models) {
-    var multi = models && models.length > 1;
-    var head = '';
-    if (multi) {
-      head = '<thead><tr><th class="k"></th>' + models.map(function (m) {
-        return '<th>' + m.label + '</th>';
-      }).join('') + '</tr></thead>';
-    }
+  /* ---------------- DETAIL: per-model specs ---------------- */
+  function valFor(r, idx) {
+    if (r.vals) { var x = r.vals[idx]; return (x == null || x === '') ? '&mdash;' : x; }
+    return bi(r.v);
+  }
+  function specGroupHtml(g, idx) {
     var rows = g.rows.map(function (r) {
-      var cells;
-      if (r.vals) {
-        cells = r.vals.map(function (v) { return '<td class="v">' + v + '</td>'; }).join('');
-      } else {
-        cells = '<td class="v"' + (multi ? ' colspan="' + models.length + '"' : '') + '>' + bi(r.v) + '</td>';
-      }
-      return '<tr><td class="k">' + bi(r.k) + '</td>' + cells + '</tr>';
+      return '<tr><td class="k">' + bi(r.k) + '</td><td class="v">' + valFor(r, idx) + '</td></tr>';
     }).join('');
     return '<div class="spec-group"><h3>' + bi(g.title) + '</h3>' +
-      '<table class="spec-table">' + head + '<tbody>' + rows + '</tbody></table></div>';
+      '<table class="spec-table"><tbody>' + rows + '</tbody></table></div>';
+  }
+  function renderSpecs(p, idx) {
+    var body = document.getElementById('specs-body');
+    if (body) body.innerHTML = (p.specGroups || []).map(function (g) { return specGroupHtml(g, idx); }).join('');
   }
 
   function renderDetail(el, p) {
@@ -97,11 +93,40 @@
       return;
     }
     document.title = 'POWERTOOL — ' + p.name;
+    SEL = 0;
+    var hasModels = !!(p.models && p.models.length);
 
     var hl = (p.highlights || []).map(function (h) {
       return '<div class="hl-item"><span class="dot">&#10003;</span><span>' + bi(h) + '</span></div>';
     }).join('');
-    var specs = (p.specGroups || []).map(function (g) { return specTable(g, p.models); }).join('');
+
+    /* model selector */
+    var tabs = '';
+    if (hasModels) {
+      tabs = '<div class="model-select"><div class="ms-label">' +
+        '<span class="lang-mn">Загвар сонгох</span><span class="lang-en">Select model</span></div>' +
+        '<div class="model-tabs" id="model-tabs">' +
+        p.models.map(function (m, i) {
+          return '<button type="button" class="model-tab' + (i === 0 ? ' active' : '') +
+                 '" data-mi="' + i + '">' + m.label + '</button>';
+        }).join('') + '</div></div>';
+    }
+
+    /* actions: datasheet download (if models) + quote */
+    var actions;
+    if (hasModels) {
+      actions = '<a class="btn btn-primary" id="dl-datasheet" href="' + p.models[0].pdf + '" download>' +
+          '<span class="dl-ico">&#8675;</span>' +
+          '<span class="lang-mn">Гарын авлага татах (PDF)</span>' +
+          '<span class="lang-en">Download datasheet (PDF)</span></a>' +
+        '<a class="btn btn-ghost" href="index.html#contact">' +
+          '<span class="lang-mn">Үнийн санал авах</span><span class="lang-en">Request a quote</span></a>';
+    } else {
+      actions = '<a class="btn btn-primary" href="index.html#contact">' +
+          '<span class="lang-mn">Үнийн санал авах</span><span class="lang-en">Request a quote</span></a>' +
+        '<a class="btn btn-ghost" href="products.html">' +
+          '<span class="lang-mn">Бусад бүтээгдэхүүн</span><span class="lang-en">Other products</span></a>';
+    }
 
     el.innerHTML =
       '<section class="detail-hero"><div class="wrap">' +
@@ -115,21 +140,19 @@
             '<h1>' + p.name + '</h1>' +
             '<p class="lead">' + bi(p.summary) + '</p>' +
             badges(p.badges) +
-            '<div class="detail-actions">' +
-              '<a class="btn btn-primary" href="index.html#contact">' +
-                '<span class="lang-mn">Санал авах</span><span class="lang-en">Request a quote</span></a>' +
-              '<a class="btn btn-ghost" href="products.html">' +
-                '<span class="lang-mn">Бусад бүтээгдэхүүн</span><span class="lang-en">Other products</span></a>' +
-            '</div>' +
+            tabs +
+            '<div class="detail-actions">' + actions + '</div>' +
           '</div>' +
         '</div>' +
       '</div></section>' +
       (hl ? '<section class="detail-section"><div class="wrap">' +
             '<h2><span class="lang-mn">Онцлог</span><span class="lang-en">Highlights</span></h2>' +
             '<div class="highlights">' + hl + '</div></div></section>' : '') +
-      (specs ? '<section class="specs"><div class="wrap">' +
-            '<h2><span class="lang-mn">Техникийн үзүүлэлт</span><span class="lang-en">Specifications</span></h2>' +
-            specs + '</div></section>' : '') +
+      '<section class="specs"><div class="wrap">' +
+        '<h2><span class="lang-mn">Техникийн үзүүлэлт</span><span class="lang-en">Specifications</span>' +
+          (hasModels ? ' <span class="spec-code mono" id="sel-code"></span>' : '') + '</h2>' +
+        '<div id="specs-body"></div>' +
+      '</div></section>' +
       '<section class="detail-cta"><div class="wrap">' +
         '<h2><span class="lang-mn">Сонирхож байна уу?</span><span class="lang-en">Interested?</span></h2>' +
         '<p><span class="lang-mn">Үнийн санал, техникийн зөвлөгөө авах бол бидэнтэй холбогдоно уу.</span>' +
@@ -137,6 +160,33 @@
         '<a class="btn btn-primary" href="index.html#contact">' +
           '<span class="lang-mn">Холбоо барих</span><span class="lang-en">Contact us</span></a>' +
       '</div></section>';
+
+    renderSpecs(p, 0);
+    wireDetail(p);
+  }
+
+  function wireDetail(p) {
+    if (!(p.models && p.models.length)) return;
+    var tabs = document.getElementById('model-tabs');
+    var dl = document.getElementById('dl-datasheet');
+    var code = document.getElementById('sel-code');
+    function select(i) {
+      SEL = i;
+      if (tabs) Array.prototype.forEach.call(tabs.children, function (b, bi2) {
+        b.classList.toggle('active', bi2 === i);
+      });
+      renderSpecs(p, i);
+      if (dl) dl.setAttribute('href', p.models[i].pdf);
+      if (code) code.textContent = p.models[i].code;
+    }
+    if (tabs) tabs.addEventListener('click', function (e) {
+      var b = e.target;
+      while (b && b !== tabs && !(b.classList && b.classList.contains('model-tab'))) b = b.parentNode;
+      if (b && b.classList && b.classList.contains('model-tab')) {
+        select(parseInt(b.getAttribute('data-mi'), 10) || 0);
+      }
+    });
+    select(0);
   }
 
   /* ---------------- SHARED CHROME (lang + burger) ---------------- */
