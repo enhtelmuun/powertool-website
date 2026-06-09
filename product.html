@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POWERTOOL — Бүтээгдэхүүн | Product</title>
+<meta name="description" content="POWERTOOL бүтээгдэхүүний дэлгэрэнгүй мэдээлэл.">
+<link rel="shortcut icon" href="logo/_mark1.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/products.css">
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html#top" class="brand">
+    <img src="logo/Logo%20new%20powertool%20%233.png" alt="POWERTOOL Logo" class="logo-img">
+  </a>
+  <div class="navlinks" id="navlinks">
+    <a href="index.html#about"><span class="lang-mn">Танилцуулга</span><span class="lang-en">About</span></a>
+    <a href="index.html#operations"><span class="lang-mn">Үйл ажиллагаа</span><span class="lang-en">Services</span></a>
+    <a href="products.html" class="active"><span class="lang-mn">Бүтээгдэхүүн</span><span class="lang-en">Products</span></a>
+    <a href="index.html#projects"><span class="lang-mn">Төслүүд</span><span class="lang-en">Projects</span></a>
+    <a href="index.html#partners"><span class="lang-mn">Түншлэл</span><span class="lang-en">Partners</span></a>
+    <a href="index.html#contact" class="nav-cta"><span class="lang-mn">Холбоо барих</span><span class="lang-en">Contact Us</span></a>
+    <div class="lang-switch">
+      <button id="btn-mn" class="lang-btn" onclick="setLanguage('mn')">MN</button>
+      <span class="divider">/</span>
+      <button id="btn-en" class="lang-btn" onclick="setLanguage('en')">EN</button>
+    </div>
+  </div>
+  <div class="burger" id="burger"><span></span><span></span><span></span></div>
+</nav>
+
+<main id="detail"><!-- product detail injected by js/products.js --></main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <a href="index.html#top" class="brand"><img src="logo/Logo%20new%20powertool%20%233.png" alt="POWERTOOL" class="logo-img"></a>
+    <div class="foot-links">
+      <a href="index.html#about"><span class="lang-mn">Танилцуулга</span><span class="lang-en">About</span></a>
+      <a href="products.html"><span class="lang-mn">Бүтээгдэхүүн</span><span class="lang-en">Products</span></a>
+      <a href="index.html#contact"><span class="lang-mn">Холбоо барих</span><span class="lang-en">Contact</span></a>
+    </div>
+    <div class="copy">© 2026 POWERTOOL LLC</div>
+  </div>
+</footer>
+
+<script src="js/products-data.js"></script>
+<script src="js/products.js"></script>
+</body>
+</html>
